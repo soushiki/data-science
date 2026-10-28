@@ -78,87 +78,140 @@ footer{padding:40px 0 64px;color:var(--muted);font-size:14px}
   .kpis{grid-template-columns:repeat(2,1fr)}
   header.hero{padding-top:48px}
 }
+[data-l="es"]{display:none}
+html[lang="es"] [data-l="en"]{display:none}
+html[lang="es"] [data-l="es"]{display:revert}
+.lt span{opacity:.5}.lt span.on{opacity:1;font-weight:700}
+.tag{white-space:nowrap}
 </style>
+<script>
+(function(){var q=new URLSearchParams(location.search).get('lang'),l=null;
+if(q==='es'||q==='en')l=q;else{try{l=localStorage.getItem('lang')||localStorage.getItem('cv-lang')}catch(e){}}
+if(l!=='es'&&l!=='en')l=(navigator.language||'').toLowerCase().startsWith('es')?'es':'en';
+document.documentElement.lang=l})();
+</script>
 </head>
 <body>
 <div class="tip" id="tip"></div>
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">Case study · NESO + Open-Meteo · Jan 2022 – Oct 2026</div>
-  <h1>Can I out-forecast Britain's grid operator?</h1>
-  <p class="lede">Every morning, Great Britain's National Energy System Operator (NESO) publishes a forecast of tomorrow's electricity demand. I built a weather-driven model under the same rules (issued the day before, using only information available then) and compared the two over 463 days of unseen data.</p>
+  <div class="eyebrow" data-l="en">Case study · NESO + Open-Meteo · Jan 2022 – Oct 2026</div><div class="eyebrow" data-l="es">Caso de estudio · NESO + Open-Meteo · ene 2022 – oct 2026</div>
+  <h1 data-l="en">Can I out-forecast Britain's grid operator?</h1><h1 data-l="es">¿Puedo pronosticar mejor que el operador de la red de Gran Bretaña?</h1>
+  <p class="lede" data-l="en">Every morning, Great Britain's National Energy System Operator (NESO) publishes a forecast of tomorrow's electricity demand. I built a weather-driven model under the same rules (issued the day before, using only information available then) and compared the two over 463 days of unseen data.</p><p class="lede" data-l="es">Cada mañana, el Operador Nacional del Sistema Energético de Gran Bretaña (NESO) publica un pronóstico de la demanda de electricidad del día siguiente. Construí un modelo guiado por el clima bajo las mismas reglas (emitido el día anterior, usando solo la información disponible en ese momento) y comparé los dos sobre 463 días de datos no vistos.</p>
   <div class="links">
-    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/gb-electricity-demand">View code on GitHub</a>
-    <a class="btn" href="#method">Methodology</a>
-    <a class="btn" href="../">All projects</a>
+    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/gb-electricity-demand"><span data-l="en">View code on GitHub</span><span data-l="es">Ver código en GitHub</span></a>
+    <a class="btn" href="#method"><span data-l="en">Methodology</span><span data-l="es">Metodología</span></a>
+    <a class="btn" href="../" data-keep><span data-l="en">All projects</span><span data-l="es">Todos los proyectos</span></a>
+    <button class="btn lt" id="langbtn" type="button" aria-label="Language / Idioma"><span data-c="en">EN</span> | <span data-c="es">ES</span></button>
   </div>
   <div class="kpis" id="kpis"></div>
 </div></header>
 
 <section><div class="wrap">
-  <div class="act">Part 1 · What drives demand</div>
-  <h2>Cold drives demand up, and rooftop solar is eating the middle of the day</h2>
-  <p>Demand rises steeply as temperatures fall, because heating switches on, and flattens out above about 15&nbsp;°C. Working days sit a level above weekends. A second force is growing every year: solar panels on rooftops generate behind the meter, so the grid sees less <em>midday</em> demand as installations increase.</p>
+  <div class="act" data-l="en">Part 1 · What drives demand</div><div class="act" data-l="es">Parte 1 · Qué impulsa la demanda</div>
+  <h2 data-l="en">Cold drives demand up, and rooftop solar is eating the middle of the day</h2><h2 data-l="es">El frío sube la demanda, y la energía solar en los techos se está comiendo el centro del día</h2>
+  <p data-l="en">Demand rises steeply as temperatures fall, because heating switches on, and flattens out above about 15&nbsp;°C. Working days sit a level above weekends. A second force is growing every year: solar panels on rooftops generate behind the meter, so the grid sees less <em>midday</em> demand as installations increase.</p><p data-l="es">La demanda sube con fuerza cuando bajan las temperaturas, porque se enciende la calefacción, y se aplana por encima de unos 15&nbsp;°C. Los días laborales quedan un nivel por encima de los fines de semana. Una segunda fuerza crece cada año: los paneles solares en los techos generan detrás del medidor, así que la red ve menos demanda <em>al mediodía</em> a medida que aumentan las instalaciones.</p>
   <div class="grid2">
-    <div class="card"><h3>Daily mean demand vs. temperature</h3><p class="sub">1,000 sampled days, population-weighted temperature</p><div id="c_temp"></div><div class="legend" id="lg_temp"></div></div>
-    <div class="card"><h3>The shrinking middle of the day</h3><p class="sub">Average summer weekday demand by half-hour, per year</p><div id="c_duck"></div><div class="legend" id="lg_duck"></div></div>
+    <div class="card"><h3><span data-l="en">Daily mean demand vs. temperature</span><span data-l="es">Demanda media diaria vs. temperatura</span></h3><p class="sub"><span data-l="en">1,000 sampled days, population-weighted temperature</span><span data-l="es">1.000 días muestreados, temperatura ponderada por población</span></p><div id="c_temp"></div><div class="legend" id="lg_temp"></div></div>
+    <div class="card"><h3><span data-l="en">The shrinking middle of the day</span><span data-l="es">El centro del día que se encoge</span></h3><p class="sub"><span data-l="en">Average summer weekday demand by half-hour, per year</span><span data-l="es">Demanda promedio de un día hábil de verano por media hora, por año</span></p><div id="c_duck"></div><div class="legend" id="lg_duck"></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Part 2 · The forecast</div>
-  <h2>A day-ahead forecast every half-hour, with an 80% range around it</h2>
-  <p>Gradient boosting on lagged demand, calendar features and archived weather <em>forecasts</em> gets within <b id="mape"></b> of actual demand on average, half the error of a "same as last week" forecast. The 80% band is calibrated on validation data; on the test set it contains <b id="cov"></b> of actual values.</p>
+  <div class="act" data-l="en">Part 2 · The forecast</div><div class="act" data-l="es">Parte 2 · El pronóstico</div>
+  <h2 data-l="en">A day-ahead forecast every half-hour, with an 80% range around it</h2><h2 data-l="es">Un pronóstico con un día de anticipación para cada media hora, con un rango del 80% alrededor</h2>
+  <p data-l="en">Gradient boosting on lagged demand, calendar features and archived weather <em>forecasts</em> gets within <b data-v="mape"></b> of actual demand on average, half the error of a "same as last week" forecast. The 80% band is calibrated on validation data; on the test set it contains <b data-v="cov"></b> of actual values.</p><p data-l="es">Un gradient boosting sobre demanda rezagada, variables de calendario y <em>pronósticos</em> del clima archivados se queda a <b data-v="mape"></b> de la demanda real en promedio, la mitad del error de un pronóstico de «igual que la semana pasada». La banda del 80% se calibra con datos de validación; en el conjunto de prueba contiene el <b data-v="cov"></b> de los valores reales.</p>
   <div class="card" style="margin-top:24px">
-    <h3>Forecast vs. actual, one test week</h3><p class="sub">Choose a week · hover for values</p>
+    <h3><span data-l="en">Forecast vs. actual, one test week</span><span data-l="es">Pronóstico vs. real, una semana de prueba</span></h3><p class="sub"><span data-l="en">Choose a week · hover for values</span><span data-l="es">Elige una semana · pasa el cursor para ver los valores</span></p>
     <div class="seg" id="weeks"></div>
     <div id="c_week"></div>
     <div class="legend" id="lg_week"></div>
   </div>
   <div class="grid2">
-    <div class="card"><h3>Half-hourly accuracy</h3><p class="sub">Test set, Jul 2025 – Oct 2026 (22,272 half-hours)</p><div class="tablewrap" id="t_hh"></div></div>
-    <div class="card"><h3>What the model relies on</h3><p class="sub">Permutation importance: MAE increase (MW) when a feature is shuffled</p><div id="c_imp"></div></div>
+    <div class="card"><h3><span data-l="en">Half-hourly accuracy</span><span data-l="es">Precisión por media hora</span></h3><p class="sub"><span data-l="en">Test set, Jul 2025 – Oct 2026 (22,272 half-hours)</span><span data-l="es">Conjunto de prueba, jul 2025 – oct 2026 (22.272 medias horas)</span></p><div class="tablewrap" id="t_hh"></div></div>
+    <div class="card"><h3><span data-l="en">What the model relies on</span><span data-l="es">En qué se apoya el modelo</span></h3><p class="sub"><span data-l="en">Permutation importance: MAE increase (MW) when a feature is shuffled</span><span data-l="es">Importancia por permutación: aumento del MAE (MW) al barajar una variable</span></p><div id="c_imp"></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Part 3 · Head-to-head</div>
-  <h2>I lost to the professionals, and then a blend beat them</h2>
-  <p>On the number that matters most for running the grid, <b>tomorrow's peak demand</b>, NESO's forecast had an average error of <b id="neso_mae"></b> against my model's <b id="mdl_mae"></b>. NESO was closer in 13 of 16 months. Its forecasters have inputs my model does not, such as embedded-generation telemetry, event calendars and years of operator judgment.</p>
+  <div class="act" data-l="en">Part 3 · Head-to-head</div><div class="act" data-l="es">Parte 3 · Frente a frente</div>
+  <h2 data-l="en">I lost to the professionals, and then a blend beat them</h2><h2 data-l="es">Perdí contra los profesionales, y luego una mezcla los superó</h2>
+  <p data-l="en">On the number that matters most for running the grid, <b>tomorrow's peak demand</b>, NESO's forecast had an average error of <b data-v="neso_mae"></b> against my model's <b data-v="mdl_mae"></b>. NESO was closer in 13 of 16 months. Its forecasters have inputs my model does not, such as embedded-generation telemetry, event calendars and years of operator judgment.</p><p data-l="es">En la cifra que más importa para operar la red, la <b>demanda pico de mañana</b>, el pronóstico de NESO tuvo un error promedio de <b data-v="neso_mae"></b> frente a <b data-v="mdl_mae"></b> de mi modelo. NESO estuvo más cerca en 13 de 16 meses. Sus pronosticadores tienen insumos que mi modelo no tiene, como telemetría de generación embebida, calendarios de eventos y años de criterio de operador.</p>
   <div class="callout" id="blendcall"></div>
   <div class="grid2">
-    <div class="card"><h3>Daily-peak error by month</h3><p class="sub">Mean absolute error (MW), lower is better</p><div id="c_month"></div><div class="legend" id="lg_month"></div></div>
-    <div class="card"><h3>Daily-peak forecast accuracy</h3><p class="sub">463 test days</p><div class="tablewrap" id="t_peak"></div>
-      <h3 style="margin-top:22px">By day type</h3><div class="tablewrap" id="t_day"></div></div>
+    <div class="card"><h3><span data-l="en">Daily-peak error by month</span><span data-l="es">Error del pico diario por mes</span></h3><p class="sub"><span data-l="en">Mean absolute error (MW), lower is better</span><span data-l="es">Error absoluto medio (MW), menor es mejor</span></p><div id="c_month"></div><div class="legend" id="lg_month"></div></div>
+    <div class="card"><h3><span data-l="en">Daily-peak forecast accuracy</span><span data-l="es">Precisión del pronóstico del pico diario</span></h3><p class="sub"><span data-l="en">463 test days</span><span data-l="es">463 días de prueba</span></p><div class="tablewrap" id="t_peak"></div>
+      <h3 style="margin-top:22px"><span data-l="en">By day type</span><span data-l="es">Por tipo de día</span></h3><div class="tablewrap" id="t_day"></div></div>
   </div>
-  <div class="card" style="margin-top:20px"><h3>Daily peak: actual vs. both forecasts</h3><p class="sub">Test period · hover for a day's numbers</p><div id="c_daily"></div><div class="legend" id="lg_daily"></div></div>
+  <div class="card" style="margin-top:20px"><h3><span data-l="en">Daily peak: actual vs. both forecasts</span><span data-l="es">Pico diario: real vs. ambos pronósticos</span></h3><p class="sub"><span data-l="en">Test period · hover for a day's numbers</span><span data-l="es">Periodo de prueba · pasa el cursor para ver los números de un día</span></p><div id="c_daily"></div><div class="legend" id="lg_daily"></div></div>
 </div></section>
 
 <section id="method"><div class="wrap">
-  <div class="act">Methodology</div>
-  <h2>How it was built</h2>
+  <div class="act" data-l="en">Methodology</div><div class="act" data-l="es">Metodología</div>
+  <h2 data-l="en">How it was built</h2><h2 data-l="es">Cómo se construyó</h2>
   <div class="steps">
-    <div class="card"><div class="n">01 · Data</div><h3>Three public APIs</h3><p>Half-hourly national demand from NESO (2022–2026, no gaps, with 46- and 50-period clock-change days handled). NESO's archived day-ahead forecasts. Open-Meteo <em>historical forecasts</em> for six population-weighted UK cities.</p></div>
-    <div class="card"><div class="n">02 · No leakage</div><h3>Same rules as NESO</h3><p>The forecast is issued at 09:00 the day before. It uses demand only up to two days earlier (publication lag), plus calendar, bank holidays and weather <em>forecasts</em>, never observed weather. A test that corrupts later actuals confirms the features don't change.</p></div>
-    <div class="card"><div class="n">03 · Evaluation</div><h3>Out of time</h3><p>Train 2022–2024, tune on H1 2025, test Jul 2025 – Oct 2026. The comparison is against a naive seasonal forecast, Ridge, gradient boosting and NESO's own forecast. Quantile intervals are recalibrated with conformal offsets.</p></div>
+    <div class="card"><div class="n"><span data-l="en">01 · Data</span><span data-l="es">01 · Datos</span></div><h3><span data-l="en">Three public APIs</span><span data-l="es">Tres APIs públicas</span></h3><p data-l="en">Half-hourly national demand from NESO (2022–2026, no gaps, with 46- and 50-period clock-change days handled). NESO's archived day-ahead forecasts. Open-Meteo <em>historical forecasts</em> for six population-weighted UK cities.</p><p data-l="es">Demanda nacional por media hora de NESO (2022–2026, sin vacíos, manejando los días de cambio de hora con 46 y 50 periodos). Pronósticos con un día de anticipación archivados de NESO. <em>Pronósticos históricos</em> de Open-Meteo para seis ciudades del Reino Unido ponderadas por población.</p></div>
+    <div class="card"><div class="n"><span data-l="en">02 · No leakage</span><span data-l="es">02 · Sin fuga de información</span></div><h3><span data-l="en">Same rules as NESO</span><span data-l="es">Mismas reglas que NESO</span></h3><p data-l="en">The forecast is issued at 09:00 the day before. It uses demand only up to two days earlier (publication lag), plus calendar, bank holidays and weather <em>forecasts</em>, never observed weather. A test that corrupts later actuals confirms the features don't change.</p><p data-l="es">El pronóstico se emite a las 09:00 del día anterior. Usa la demanda solo hasta dos días antes (rezago de publicación), más calendario, festivos y <em>pronósticos</em> del clima, nunca el clima observado. Una prueba que corrompe los datos reales posteriores confirma que las variables no cambian.</p></div>
+    <div class="card"><div class="n"><span data-l="en">03 · Evaluation</span><span data-l="es">03 · Evaluación</span></div><h3><span data-l="en">Out of time</span><span data-l="es">Validación fuera de tiempo</span></h3><p data-l="en">Train 2022–2024, tune on H1 2025, test Jul 2025 – Oct 2026. The comparison is against a naive seasonal forecast, Ridge, gradient boosting and NESO's own forecast. Quantile intervals are recalibrated with conformal offsets.</p><p data-l="es">Entrenamiento 2022–2024, ajuste en el primer semestre de 2025, prueba de jul 2025 a oct 2026. La comparación es contra un pronóstico estacional ingenuo, Ridge, gradient boosting y el propio pronóstico de NESO. Los intervalos por cuantiles se recalibran con desplazamientos conformales.</p></div>
   </div>
-  <h3 style="margin-top:36px">Limitations</h3>
+  <h3 style="margin-top:36px"><span data-l="en">Limitations</span><span data-l="es">Limitaciones</span></h3>
   <ul class="tight">
-    <li>Open-Meteo stitches short-lead forecast runs, so the weather inputs are slightly fresher (0–24h lead) than a real 09:00 D-1 issue would have. This favors my model, which still lost.</li>
-    <li>NESO doesn't publish a single "daily peak" for every day, so its peak is taken as the maximum of its cardinal-point forecasts. The 155 days with an explicit peak point give the same conclusion (626 vs 976 MW).</li>
-    <li>Bank holidays are the model's weakest point (+2.3 GW bias), with only nine of them in the test set. A dedicated holiday-effect model would be the first fix.</li>
-    <li>The blend uses a fixed 50/50 weight chosen in advance, not tuned on the test set. Weights learned on a rolling window would be the production approach.</li>
+    <li data-l="en">Open-Meteo stitches short-lead forecast runs, so the weather inputs are slightly fresher (0–24h lead) than a real 09:00 D-1 issue would have. This favors my model, which still lost.</li><li data-l="es">Open-Meteo une ejecuciones de pronóstico de corto plazo, así que los insumos del clima son un poco más recientes (anticipación de 0–24 h) de lo que tendría una emisión real a las 09:00 de D-1. Esto favorece a mi modelo, que aun así perdió.</li>
+    <li data-l="en">NESO doesn't publish a single "daily peak" for every day, so its peak is taken as the maximum of its cardinal-point forecasts. The 155 days with an explicit peak point give the same conclusion (626 vs 976 MW).</li><li data-l="es">NESO no publica un único «pico diario» para todos los días, así que su pico se toma como el máximo de sus pronósticos de puntos cardinales. Los 155 días con un punto de pico explícito llevan a la misma conclusión (626 vs 976 MW).</li>
+    <li data-l="en">Bank holidays are the model's weakest point (+2.3 GW bias), with only nine of them in the test set. A dedicated holiday-effect model would be the first fix.</li><li data-l="es">Los festivos son el punto más débil del modelo (sesgo de +2,3 GW), con solo nueve en el conjunto de prueba. Un modelo dedicado al efecto de los festivos sería la primera corrección.</li>
+    <li data-l="en">The blend uses a fixed 50/50 weight chosen in advance, not tuned on the test set. Weights learned on a rolling window would be the production approach.</li><li data-l="es">La mezcla usa un peso fijo 50/50 elegido de antemano, no ajustado sobre el conjunto de prueba. Pesos aprendidos con una ventana móvil serían el enfoque de producción.</li>
   </ul>
 </div></section>
 
-<footer><div class="wrap">Data: NESO Open Data (Historic Demand Data, Day Ahead Demand Forecast archive), Open-Meteo Historical Forecast API. Built with Python, pandas and scikit-learn. Charts are hand-drawn SVG with no dependencies.</div></footer>
+<footer><div class="wrap"><span data-l="en">Data: NESO Open Data (Historic Demand Data, Day Ahead Demand Forecast archive), Open-Meteo Historical Forecast API. Built with Python, pandas and scikit-learn. Charts are hand-drawn SVG with no dependencies.</span><span data-l="es">Datos: NESO Open Data (Historic Demand Data, archivo de Day Ahead Demand Forecast), Open-Meteo Historical Forecast API. Construido con Python, pandas y scikit-learn. Los gráficos son SVG dibujados a mano, sin dependencias.</span></div></footer>
 
 <script>
 const D = /*__DATA__*/null;
+const L={en:{
+  title:'GB Demand Forecast',
+  kpi1:'half-hourly error (MAPE), day ahead',kpi2:'NESO daily-peak error. Mine: ',kpi3:'better',kpi3l:'blend of mine + NESO vs. NESO alone',kpi4:'of actuals inside the 80% band',
+  blend:(n,g)=>`<b>But the errors point in different directions.</b> NESO tends to <i>under</i>-forecast the peak (bias ${n} MW), while my model over-forecasts in summer. Averaging the two, with a fixed 50/50 weight chosen in advance, cuts the error to <b>${g[0]} MW</b>, <b>${g[1]} better than NESO alone</b>. The model doesn't replace the operator's forecast, but it adds independent information to it.`,
+  names:{naive:'Same as last week',ridge:'Ridge regression',hgb:'Gradient boosting (mine)',hgb_bc:'Mine, bias-corrected',neso:'NESO official',neso_bc:'NESO, bias-corrected',blend:'50/50 blend'},
+  work:'Working day',wkend:'Weekend / holiday',tempx:'daily mean temperature (°C)',midday:'midday',solarcap:'solar cap',solar:'solar',
+  actual:'Actual',forecast:'Forecast',band80:'80% band',fclegend:'Forecast (issued day before)',int80:'80% interval',
+  model:'Model',best:'best',pro:'pro',hhnote:"MW. NESO doesn't publish a full half-hourly day-ahead curve, so the head-to-head below uses daily peaks.",
+  days:'days',bias:'bias',mine:'Mine',minewins:'Mine wins',neso:'NESO official',starwin:'★ month mine wins',
+  fcol:'Forecast',biasH:'Bias',daytype:'Day type',daysH:'Days',nesoH:'NESO',mineH:'Mine',
+  dt:{},actpeak:'Actual peak',off:'off',minecloser:'Mine closer',nesocloser:'NESO closer',
+  lab:{lag_wd4_mean:'4-week same-weekday mean',slot:'half-hour of day',lag_d2:'demand 2 days ago',solar_pot:'solar potential',dow:'day of week',lag_d7:'demand 7 days ago',temp_dmax:'max temperature',wind:'wind speed',rad:'solar radiation',temp_ma3:'3-day temp. average',doy_sin:'season (sin)',temp_prev_dmean:'yesterday mean temp.'}
+},es:{
+  title:'Pronóstico de demanda de GB',
+  kpi1:'error por media hora (MAPE), un día antes',kpi2:'error del pico diario de NESO. El mío: ',kpi3:'mejor',kpi3l:'mezcla del mío + NESO vs. NESO solo',kpi4:'de los valores reales dentro de la banda del 80%',
+  blend:(n,g)=>`<b>Pero los errores apuntan en direcciones distintas.</b> NESO tiende a <i>subestimar</i> el pico (sesgo de ${n} MW), mientras que mi modelo sobreestima en verano. Al promediar los dos, con un peso fijo 50/50 elegido de antemano, el error baja a <b>${g[0]} MW</b>, <b>${g[1]} mejor que NESO solo</b>. El modelo no reemplaza el pronóstico del operador, pero le aporta información independiente.`,
+  names:{naive:'Igual que la semana pasada',ridge:'Regresión Ridge',hgb:'Gradient boosting (el mío)',hgb_bc:'El mío, con sesgo corregido',neso:'NESO oficial',neso_bc:'NESO, con sesgo corregido',blend:'Mezcla 50/50'},
+  work:'Día laboral',wkend:'Fin de semana / festivo',tempx:'temperatura media diaria (°C)',midday:'mediodía',solarcap:'cap. solar',solar:'solar',
+  actual:'Real',forecast:'Pronóstico',band80:'Banda del 80%',fclegend:'Pronóstico (emitido el día anterior)',int80:'Intervalo del 80%',
+  model:'Modelo',best:'mejor',pro:'pro',hhnote:'MW. NESO no publica una curva completa por media hora con un día de anticipación, por lo que la comparación frente a frente de abajo usa los picos diarios.',
+  days:'días',bias:'sesgo',mine:'El mío',minewins:'Gana el mío',neso:'NESO oficial',starwin:'★ mes en que gana el mío',
+  fcol:'Pronóstico',biasH:'Sesgo',daytype:'Tipo de día',daysH:'Días',nesoH:'NESO',mineH:'El mío',
+  dt:{'Bank holiday':'Festivo','Saturday':'Sábado','Sunday':'Domingo','Weekday':'Día hábil'},actpeak:'Pico real',off:'desvío',minecloser:'Más cerca el mío',nesocloser:'Más cerca NESO',
+  lab:{lag_wd4_mean:'media de 4 semanas del mismo día',slot:'media hora del día',lag_d2:'demanda de hace 2 días',solar_pot:'potencial solar',dow:'día de la semana',lag_d7:'demanda de hace 7 días',temp_dmax:'temperatura máxima',wind:'velocidad del viento',rad:'radiación solar',temp_ma3:'temp. promedio de 3 días',doy_sin:'estación (sen)',temp_prev_dmean:'temp. media de ayer'}
+}};
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const pct = (x,d=0) => (x*100).toFixed(d)+'%';
-const fmt = n => Math.round(n).toLocaleString('en-US');
-const gw = mw => (mw/1000).toFixed(1)+' GW';
+let lang=document.documentElement.lang==='es'?'es':'en';
+const loc=()=>lang==='es'?'es-CO':'en-US';
+const nf=(x,d=0)=>x.toLocaleString(loc(),{minimumFractionDigits:d,maximumFractionDigits:d});
+const tr=k=>{const v=L[lang][k];return v===undefined?L.en[k]:v};
+const setv=(n,t)=>document.querySelectorAll('[data-v="'+n+'"]').forEach(e=>e.textContent=t);
+const mon=(d,o)=>d.toLocaleDateString(loc(),o).replace(/[.]/g,'');
+function setLang(l,save){
+  lang=l;document.documentElement.lang=l;
+  if(save){try{localStorage.setItem('lang',l);localStorage.setItem('cv-lang',l)}catch(e){}}
+  try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  document.querySelectorAll('.lt span').forEach(s=>s.classList.toggle('on',s.dataset.c===l));
+  document.querySelectorAll('a[data-keep]').forEach(a=>{if(!a.dataset.base)a.dataset.base=a.getAttribute('href');a.href=a.dataset.base+'?lang='+l});
+  document.title=tr('title');
+}
+document.getElementById('langbtn').onclick=()=>{setLang(lang==='es'?'en':'es',true);render()};
+const pct = (x,d=0) => nf(x*100,d)+'%';
+const fmt = n => Math.round(n).toLocaleString(loc());
+const gw = mw => nf(mw/1000,1)+' GW';
+const dl = () => lang==='es'?'es-CO':'en-GB';
 const NS='http://www.w3.org/2000/svg';
 function el(tag,a={},p){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
 function svg(host,w,h){const s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img'});const n=document.getElementById(host);n.innerHTML='';n.appendChild(s);return s}
@@ -177,7 +230,7 @@ function frame(host,w,h,m,xr,yr,{yt,xt,yfmt=v=>v,xfmt=v=>v}){
 function mouseX(s,e,w){const r=s.getBoundingClientRect();return (e.clientX-r.left)/r.width*w}
 const ticks=([a,b],st)=>{const r=[];for(let v=a;v<=b+1e-9;v+=st)r.push(v);return r};
 const legend=(id,items)=>document.getElementById(id).innerHTML=items.map(([l,c,cls])=>`<span><i class="${cls||''}" style="background:${c}"></i>${l}</span>`).join('');
-const NAMES={naive:'Same as last week',ridge:'Ridge regression',hgb:'Gradient boosting (mine)',hgb_bc:'Mine, bias-corrected',neso:'NESO official',neso_bc:'NESO, bias-corrected',blend:'50/50 blend'};
+const NAMES=new Proxy({},{get:(_,k)=>L[lang].names[k]});
 let week=0;
 
 function render(){
@@ -185,48 +238,48 @@ function render(){
   const peak=Object.fromEntries(D.head_to_head.tables.map(r=>[r.model,r]));
   const gain=1-peak.blend.mae/peak.neso.mae;
   document.getElementById('kpis').innerHTML=[
-    [pct(k.model_mape,1),'half-hourly error (MAPE), day ahead'],
-    [fmt(k.peak_mae_neso_mw)+' MW','NESO daily-peak error. Mine: '+fmt(k.peak_mae_model_mw)+' MW'],
-    [pct(gain)+' better','blend of mine + NESO vs. NESO alone'],
-    [pct(k.interval_coverage_80),'of actuals inside the 80% band']
+    [pct(k.model_mape,1),tr('kpi1')],
+    [fmt(k.peak_mae_neso_mw)+' MW',tr('kpi2')+fmt(k.peak_mae_model_mw)+' MW'],
+    [pct(gain)+' '+tr('kpi3'),tr('kpi3l')],
+    [pct(k.interval_coverage_80),tr('kpi4')]
   ].map(([v,l])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
-  document.getElementById('mape').textContent=pct(k.model_mape,1);
-  document.getElementById('cov').textContent=pct(k.interval_coverage_80,1);
-  document.getElementById('neso_mae').textContent=fmt(peak.neso.mae)+' MW';
-  document.getElementById('mdl_mae').textContent=fmt(peak.hgb.mae)+' MW';
-  document.getElementById('blendcall').innerHTML=`<b>But the errors point in different directions.</b> NESO tends to <i>under</i>-forecast the peak (bias ${fmt(peak.neso.bias)} MW), while my model over-forecasts in summer. Averaging the two, with a fixed 50/50 weight chosen in advance, cuts the error to <b>${fmt(peak.blend.mae)} MW</b>, <b>${pct(gain,1)} better than NESO alone</b>. The model doesn't replace the operator's forecast, but it adds independent information to it.`;
+  setv('mape',pct(k.model_mape,1));
+  setv('cov',pct(k.interval_coverage_80,1));
+  setv('neso_mae',fmt(peak.neso.mae)+' MW');
+  setv('mdl_mae',fmt(peak.hgb.mae)+' MW');
+  document.getElementById('blendcall').innerHTML=tr('blend')(fmt(peak.neso.bias),[fmt(peak.blend.mae),pct(gain,1)]);
 
   // temperature scatter
   {const t=D.temp_scatter,w=480,h=300,m={l:46,r:10,t:10,b:34};
    const ys=t.nd,yr=[Math.floor(Math.min(...ys)/4000)*4000,Math.ceil(Math.max(...ys)/4000)*4000];
    const f=frame('c_temp',w,h,m,[-5,30],yr,{yt:ticks(yr,4000),xt:[-5,0,5,10,15,20,25,30],yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:v=>v+'°'});
    t.t.forEach((x,i)=>el('circle',{cx:f.X(x),cy:f.Y(t.nd[i]),r:2.2,fill:t.working[i]?accent:cool,'fill-opacity':.45},f.s));
-   txt(f.s,m.l+f.W/2,h-2,'daily mean temperature (°C)',{'text-anchor':'middle'});
-   legend('lg_temp',[['Working day',accent],['Weekend / holiday',cool]]);}
+   txt(f.s,m.l+f.W/2,h-2,tr('tempx'),{'text-anchor':'middle'});
+   legend('lg_temp',[[tr('work'),accent],[tr('wkend'),cool]]);}
 
   // duck curve
   {const p=D.duck.profiles,yrs=Object.keys(p),w=480,h=300,m={l:46,r:10,t:10,b:34};
    const all=yrs.flatMap(y=>p[y]);const yr=[Math.floor(Math.min(...all)/2000)*2000,Math.ceil(Math.max(...all)/2000)*2000];
    const f=frame('c_duck',w,h,m,[0,47],yr,{yt:ticks(yr,2000),xt:[0,12,24,36,47],yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:v=>String(Math.floor(v/2)).padStart(2,'0')+':'+(v%2?'30':'00')});
    el('rect',{x:f.X(20),y:m.t,width:f.X(28)-f.X(20),height:f.H,fill:css('--accent-soft')},f.s);
-   txt(f.s,f.X(24),m.t+12,'midday',{'text-anchor':'middle'});
+   txt(f.s,f.X(24),m.t+12,tr('midday'),{'text-anchor':'middle'});
    const cols=yrs.map((_,i)=>i===yrs.length-1?accent:`color-mix(in srgb, ${cool} ${30+i*15}%, transparent)`);
    yrs.forEach((y,i)=>el('polyline',{points:p[y].map((v,j)=>f.X(j)+','+f.Y(v)).join(' '),fill:'none',stroke:cols[i],'stroke-width':i===yrs.length-1?2.5:1.75},f.s));
    const ov=el('rect',{x:m.l,y:m.t,width:f.W,height:f.H,fill:'transparent'},f.s);
    ov.addEventListener('mousemove',e=>{const j=Math.max(0,Math.min(47,Math.round((mouseX(f.s,e,w)-m.l)/f.W*47)));
-     showTip(e,`<b>${String(Math.floor(j/2)).padStart(2,'0')}:${j%2?'30':'00'}</b><br>`+yrs.map(y=>`${y}: ${gw(p[y][j])} <span style="opacity:.7">· solar cap ${gw(D.duck.solar_capacity_mw[y])}</span>`).join('<br>'))});
+     showTip(e,`<b>${String(Math.floor(j/2)).padStart(2,'0')}:${j%2?'30':'00'}</b><br>`+yrs.map(y=>`${y}: ${gw(p[y][j])} <span style="opacity:.7">· ${tr('solarcap')} ${gw(D.duck.solar_capacity_mw[y])}</span>`).join('<br>'))});
    ov.addEventListener('mouseleave',hideTip);
-   legend('lg_duck',yrs.map((y,i)=>[`${y} (${gw(D.duck.solar_capacity_mw[y])} solar)`,cols[i]]));}
+   legend('lg_duck',yrs.map((y,i)=>[`${y} (${gw(D.duck.solar_capacity_mw[y])} ${tr('solar')})`,cols[i]]));}
 
   // week selector + chart
   {const box=document.getElementById('weeks');
-   box.innerHTML=D.weeks.map((wk,i)=>`<button aria-pressed="${i===week}" data-i="${i}">${new Date(wk.start+'T12:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'})}</button>`).join('');
+   box.innerHTML=D.weeks.map((wk,i)=>`<button aria-pressed="${i===week}" data-i="${i}">${new Date(wk.start+'T12:00').toLocaleDateString(dl(),{day:'numeric',month:'short',year:'2-digit'})}</button>`).join('');
    box.querySelectorAll('button').forEach(b=>b.onclick=()=>{week=+b.dataset.i;render()});
    const wk=D.weeks[week],n=wk.actual.length,w=960,h=300,m={l:46,r:10,t:10,b:30};
    const all=[...wk.actual,...wk.p10,...wk.p90].filter(v=>v!=null);const yr=[Math.floor(Math.min(...all)/5000)*5000,Math.ceil(Math.max(...all)/5000)*5000];
    const yt=[];for(let v=yr[0];v<=yr[1];v+=5000)yt.push(v);
    const start=new Date(wk.start+'T00:00');
-   const f=frame('c_week',w,h,m,[0,n-1],yr,{yt,xt:[...Array(7)].map((_,d)=>d*48+24),yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:v=>new Date(start.getTime()+Math.floor(v/48)*864e5).toLocaleDateString('en-GB',{weekday:'short',day:'numeric'})});
+   const f=frame('c_week',w,h,m,[0,n-1],yr,{yt,xt:[...Array(7)].map((_,d)=>d*48+24),yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:v=>new Date(start.getTime()+Math.floor(v/48)*864e5).toLocaleDateString(dl(),{weekday:'short',day:'numeric'})});
    for(let d=1;d<7;d++)el('line',{x1:f.X(d*48),x2:f.X(d*48),y1:m.t,y2:m.t+f.H,stroke:css('--line')},f.s);
    el('polygon',{points:[...wk.p90.map((v,i)=>f.X(i)+','+f.Y(v)),...wk.p10.map((v,i)=>[f.X(i),f.Y(v)]).reverse().map(q=>q.join(','))].join(' '),fill:accent,'fill-opacity':.15},f.s);
    el('polyline',{points:wk.pred.map((v,i)=>f.X(i)+','+f.Y(v)).join(' '),fill:'none',stroke:accent,'stroke-width':2},f.s);
@@ -235,17 +288,17 @@ function render(){
    const ov=el('rect',{x:m.l,y:m.t,width:f.W,height:f.H,fill:'transparent'},f.s);
    ov.addEventListener('mousemove',e=>{const i=Math.max(0,Math.min(n-1,Math.round((mouseX(f.s,e,w)-m.l)/f.W*(n-1))));cross.setAttribute('x1',f.X(i));cross.setAttribute('x2',f.X(i));cross.setAttribute('opacity',.3);
      const t=new Date(start.getTime()+i*18e5);const inb=wk.actual[i]>=wk.p10[i]&&wk.actual[i]<=wk.p90[i];
-     showTip(e,`<b>${t.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})} ${t.toTimeString().slice(0,5)}</b><br>Actual ${fmt(wk.actual[i])} MW<br>Forecast ${fmt(wk.pred[i])} MW<br>80% band ${fmt(wk.p10[i])}–${fmt(wk.p90[i])} ${inb?'✓':'✗'}`)});
+     showTip(e,`<b>${t.toLocaleDateString(dl(),{weekday:'short',day:'numeric',month:'short'})} ${t.toTimeString().slice(0,5)}</b><br>${tr('actual')} ${fmt(wk.actual[i])} MW<br>${tr('forecast')} ${fmt(wk.pred[i])} MW<br>${tr('band80')} ${fmt(wk.p10[i])}–${fmt(wk.p90[i])} ${inb?'✓':'✗'}`)});
    ov.addEventListener('mouseleave',()=>{hideTip();cross.setAttribute('opacity',0)});
-   legend('lg_week',[['Actual',ink],['Forecast (issued day before)',accent],['80% interval',accent,'box']]);}
+   legend('lg_week',[[tr('actual'),ink],[tr('fclegend'),accent],[tr('int80'),accent,'box']]);}
 
   // half-hourly table
   {const r=D.metrics.test;const best=r.reduce((a,b)=>a.mae<b.mae?a:b).model;
-   document.getElementById('t_hh').innerHTML=`<table><tr><th>Model</th><th>MAE</th><th>MAPE</th><th>RMSE</th></tr>${r.map(x=>`<tr class="${x.model===best?'hl':''}"><td>${NAMES[x.model]}${x.model===best?'<span class="tag">best</span>':''}</td><td class="num">${fmt(x.mae)}</td><td class="num">${pct(x.mape,2)}</td><td class="num">${fmt(x.rmse)}</td></tr>`).join('')}</table><p class="sub" style="margin-top:10px">MW. NESO doesn't publish a full half-hourly day-ahead curve, so the head-to-head below uses daily peaks.</p>`;}
+   document.getElementById('t_hh').innerHTML=`<table><tr><th>${tr('model')}</th><th>MAE</th><th>MAPE</th><th>RMSE</th></tr>${r.map(x=>`<tr class="${x.model===best?'hl':''}"><td>${NAMES[x.model]}${x.model===best?`<span class="tag">${tr('best')}</span>`:''}</td><td class="num">${fmt(x.mae)}</td><td class="num">${pct(x.mape,2)}</td><td class="num">${fmt(x.rmse)}</td></tr>`).join('')}</table><p class="sub" style="margin-top:10px">${tr('hhnote')}</p>`;}
 
   // importance
   {const imp=D.importance,w=480,rh=22,lw=150,h=imp.length*rh+6,s=svg('c_imp',w,h),mx=imp[0].mae_increase_mw;
-   const lab={lag_wd4_mean:'4-week same-weekday mean',slot:'half-hour of day',lag_d2:'demand 2 days ago',solar_pot:'solar potential',dow:'day of week',lag_d7:'demand 7 days ago',temp_dmax:'max temperature',wind:'wind speed',rad:'solar radiation',temp_ma3:'3-day temp. average',doy_sin:'season (sin)',temp_prev_dmean:'yesterday mean temp.'};
+   const lab=L[lang].lab;
    imp.forEach((r,i)=>{const y=i*rh+3,bw=Math.max(1.5,r.mae_increase_mw/mx*(w-lw-50));
      txt(s,lw-8,y+14,lab[r.feature]||r.feature,{'text-anchor':'end',style:`fill:${ink};font-size:12px`});
      el('rect',{x:lw,y:y+3,width:bw,height:rh-8,rx:3,fill:i===0?accent:cool},s);txt(s,lw+bw+6,y+14,fmt(r.mae_increase_mw),{class:'val'})});}
@@ -256,31 +309,32 @@ function render(){
    const bw=f.W/mm.length;
    mm.forEach((r,i)=>{const x=m.l+i*bw;
      [[r.neso,cool,0],[r.model,accent,1]].forEach(([v,c,j])=>{const b=el('rect',{x:x+bw*.12+j*bw*.38,y:f.Y(v),width:bw*.36,height:f.Y(0)-f.Y(v),rx:2,fill:c},f.s);
-       hover(b,`<b>${r.month}</b> (${r.n} days)<br>NESO ${fmt(r.neso)} MW · bias ${fmt(r.neso_bias)}<br>Mine ${fmt(r.model)} MW · bias ${fmt(r.model_bias)}${r.model<r.neso?'<br><b>Mine wins</b>':''}`)});
+       hover(b,`<b>${r.month}</b> (${r.n} ${tr('days')})<br>NESO ${fmt(r.neso)} MW · ${tr('bias')} ${fmt(r.neso_bias)}<br>${tr('mine')} ${fmt(r.model)} MW · ${tr('bias')} ${fmt(r.model_bias)}${r.model<r.neso?'<br><b>'+tr('minewins')+'</b>':''}`)});
      if(r.model<r.neso)txt(f.s,x+bw/2,f.Y(Math.max(r.model,r.neso))-5,'★',{'text-anchor':'middle',style:`fill:${good}`});
-     if(i%3===0)txt(f.s,x+bw/2,h-m.b+16,new Date(r.month+'-15').toLocaleDateString('en-GB',{month:'short',year:'2-digit'}),{'text-anchor':'middle'})});
-   legend('lg_month',[['NESO official',cool],['Mine',accent],['★ month mine wins',good]]);}
+     if(i%3===0)txt(f.s,x+bw/2,h-m.b+16,new Date(r.month+'-15').toLocaleDateString(dl(),{month:'short',year:'2-digit'}),{'text-anchor':'middle'})});
+   legend('lg_month',[[tr('neso'),cool],[tr('mine'),accent],[tr('starwin'),good]]);}
 
   // peak table
   {const order=['naive','ridge','hgb','neso','blend'];
-   document.getElementById('t_peak').innerHTML=`<table><tr><th>Forecast</th><th>MAE</th><th>MAPE</th><th>Bias</th></tr>${order.map(n=>{const r=peak[n];return `<tr class="${n==='blend'?'hl':n==='naive'?'dim':''}"><td>${NAMES[n]}${n==='blend'?'<span class="tag">best</span>':n==='neso'?'<span class="tag cool">pro</span>':''}</td><td class="num">${fmt(r.mae)}</td><td class="num">${pct(r.mape,2)}</td><td class="num">${r.bias>0?'+':''}${fmt(r.bias)}</td></tr>`}).join('')}</table>`;
-   document.getElementById('t_day').innerHTML=`<table><tr><th>Day type</th><th>Days</th><th>NESO</th><th>Mine</th></tr>${D.head_to_head.by_daytype.map(r=>`<tr><td>${r.daytype}</td><td class="num">${r.n}</td><td class="num">${fmt(r.neso_mae)}</td><td class="num">${fmt(r.model_mae)}</td></tr>`).join('')}</table>`;}
+   document.getElementById('t_peak').innerHTML=`<table><tr><th>${tr('fcol')}</th><th>MAE</th><th>MAPE</th><th>${tr('biasH')}</th></tr>${order.map(n=>{const r=peak[n];return `<tr class="${n==='blend'?'hl':n==='naive'?'dim':''}"><td>${NAMES[n]}${n==='blend'?`<span class="tag">${tr('best')}</span>`:n==='neso'?`<span class="tag cool">${tr('pro')}</span>`:''}</td><td class="num">${fmt(r.mae)}</td><td class="num">${pct(r.mape,2)}</td><td class="num">${r.bias>0?'+':''}${fmt(r.bias)}</td></tr>`}).join('')}</table>`;
+   document.getElementById('t_day').innerHTML=`<table><tr><th>${tr('daytype')}</th><th>${tr('daysH')}</th><th>NESO</th><th>${tr('mineH')}</th></tr>${D.head_to_head.by_daytype.map(r=>`<tr><td>${L[lang].dt[r.daytype]||r.daytype}</td><td class="num">${r.n}</td><td class="num">${fmt(r.neso_mae)}</td><td class="num">${fmt(r.model_mae)}</td></tr>`).join('')}</table>`;}
 
   // daily peaks
   {const dp=D.daily_peaks,n=dp.date.length,w=960,h=280,m={l:46,r:10,t:10,b:30};
    const all=[...dp.actual,...dp.model,...dp.neso];const yr=[Math.floor(Math.min(...all)/5000)*5000,Math.ceil(Math.max(...all)/5000)*5000];const yt=[];for(let v=yr[0];v<=yr[1];v+=5000)yt.push(v);
    const xt=dp.date.map((d,i)=>[d,i]).filter(([d])=>d.endsWith('-01')).map(([,i])=>i).filter((_,j)=>j%2===0);
-   const f=frame('c_daily',w,h,m,[0,n-1],yr,{yt,xt,yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:i=>new Date(dp.date[i]+'T12:00').toLocaleDateString('en-GB',{month:'short',year:'2-digit'})});
+   const f=frame('c_daily',w,h,m,[0,n-1],yr,{yt,xt,yfmt:v=>(v/1000).toFixed(0)+'GW',xfmt:i=>new Date(dp.date[i]+'T12:00').toLocaleDateString(dl(),{month:'short',year:'2-digit'})});
    const pl=(arr,c,sw,op=1)=>el('polyline',{points:arr.map((v,i)=>f.X(i)+','+f.Y(v)).join(' '),fill:'none',stroke:c,'stroke-width':sw,'stroke-opacity':op},f.s);
    pl(dp.neso,cool,1.25,.9);pl(dp.model,accent,1.25,.9);pl(dp.actual,ink,1.5);
    const cross=el('line',{y1:m.t,y2:m.t+f.H,stroke:ink,opacity:0},f.s);
    const ov=el('rect',{x:m.l,y:m.t,width:f.W,height:f.H,fill:'transparent'},f.s);
    ov.addEventListener('mousemove',e=>{const i=Math.max(0,Math.min(n-1,Math.round((mouseX(f.s,e,w)-m.l)/f.W*(n-1))));cross.setAttribute('x1',f.X(i));cross.setAttribute('x2',f.X(i));cross.setAttribute('opacity',.3);
      const a=dp.actual[i],em=Math.abs(dp.model[i]-a),en=Math.abs(dp.neso[i]-a);
-     showTip(e,`<b>${new Date(dp.date[i]+'T12:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</b><br>Actual peak ${fmt(a)} MW<br>NESO ${fmt(dp.neso[i])} (off ${fmt(en)})<br>Mine ${fmt(dp.model[i])} (off ${fmt(em)})<br><b>${em<en?'Mine closer':'NESO closer'}</b>`)});
+     showTip(e,`<b>${new Date(dp.date[i]+'T12:00').toLocaleDateString(dl(),{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</b><br>${tr('actpeak')} ${fmt(a)} MW<br>NESO ${fmt(dp.neso[i])} (${tr('off')} ${fmt(en)})<br>${tr('mine')} ${fmt(dp.model[i])} (${tr('off')} ${fmt(em)})<br><b>${em<en?tr('minecloser'):tr('nesocloser')}</b>`)});
    ov.addEventListener('mouseleave',()=>{hideTip();cross.setAttribute('opacity',0)});
-   legend('lg_daily',[['Actual',ink],['NESO official',cool],['Mine',accent]]);}
+   legend('lg_daily',[[tr('actual'),ink],[tr('neso'),cool],[tr('mine'),accent]]);}
 }
+setLang(lang,false);
 render();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render);
 </script>

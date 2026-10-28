@@ -76,92 +76,144 @@ code{font:13px "JetBrains Mono",monospace;background:var(--line);padding:1px 5px
   .kpis{grid-template-columns:repeat(2,1fr)}
   header.hero{padding-top:48px}
 }
+[data-l="es"]{display:none}
+html[lang="es"] [data-l="en"]{display:none}
+html[lang="es"] [data-l="es"]{display:revert}
+.lt span{opacity:.5}.lt span.on{opacity:1;font-weight:700}
+html[lang="es"] tr.best td:first-child::after{content:"mejor"}
+button.btn{cursor:pointer}
 </style>
+<script>
+(function(){var q=new URLSearchParams(location.search).get('lang'),l=null;
+if(q==='es'||q==='en')l=q;else{try{l=localStorage.getItem('lang')||localStorage.getItem('cv-lang')}catch(e){}}
+if(l!=='es'&&l!=='en')l=(navigator.language||'').toLowerCase().startsWith('es')?'es':'en';
+document.documentElement.lang=l})();
+</script>
 </head>
 <body>
 <div class="tip" id="tip"></div>
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">Case study · NYC Open Data · Mar–Aug 2026</div>
-  <h1>Which 311 complaints will fall behind?</h1>
-  <p class="lede">An end-to-end model that flags, at the moment a request is filed, the New York City service requests most likely to be resolved slower than comparable requests, so supervisors can triage before a backlog forms.</p>
+  <div class="eyebrow" data-l="en">Case study · NYC Open Data · Mar–Aug 2026</div><div class="eyebrow" data-l="es">Caso de estudio · NYC Open Data · mar–ago 2026</div>
+  <h1 data-l="en">Which 311 complaints will fall behind?</h1><h1 data-l="es">¿Qué quejas del 311 se van a retrasar?</h1>
+  <p class="lede" data-l="en">An end-to-end model that flags, at the moment a request is filed, the New York City service requests most likely to be resolved slower than comparable requests, so supervisors can triage before a backlog forms.</p><p class="lede" data-l="es">Un modelo de punta a punta que señala, en el momento en que se radica una solicitud, las solicitudes de servicio de la ciudad de Nueva York con mayor probabilidad de resolverse más lento que otras comparables, para que los supervisores prioricen antes de que se forme un rezago.</p>
   <div class="links">
-    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/nyc-311-delays">View code on GitHub</a>
-    <a class="btn" href="#method">Methodology</a>
-    <a class="btn" href="../">All projects</a>
+    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/nyc-311-delays"><span data-l="en">View code on GitHub</span><span data-l="es">Ver código en GitHub</span></a>
+    <a class="btn" href="#method"><span data-l="en">Methodology</span><span data-l="es">Metodología</span></a>
+    <a class="btn" href="../" data-keep><span data-l="en">All projects</span><span data-l="es">Todos los proyectos</span></a>
+    <button class="btn lt" id="langbtn" type="button" aria-label="Language / Idioma"><span data-c="en">EN</span> | <span data-c="es">ES</span></button>
   </div>
   <div class="kpis" id="kpis"></div>
 </div></header>
 
 <section><div class="wrap">
-  <div class="act">Study 1 · The obvious question</div>
-  <h2>"Will it miss 72 hours?" is mostly answered by a lookup table</h2>
-  <p>I first framed the task as a standard 72-hour SLA check. Gradient boosting scored an ROC-AUC of <b id="s1hgb"></b>, which looks impressive until it is compared with a baseline that only looks up each complaint type's historical rate: <b id="s1base"></b>.</p>
-  <p class="muted">The reason is visible below. Parking and noise complaints are handled by NYPD in under two hours; housing-condition complaints handled by HPD take weeks. The complaint type already determines the outcome.</p>
+  <div class="act" data-l="en">Study 1 · The obvious question</div><div class="act" data-l="es">Estudio 1 · La pregunta obvia</div>
+  <h2 data-l="en">"Will it miss 72 hours?" is mostly answered by a lookup table</h2><h2 data-l="es">«¿Incumplirá las 72 horas?» casi lo responde una tabla de consulta</h2>
+  <p data-l="en">I first framed the task as a standard 72-hour SLA check. Gradient boosting scored an ROC-AUC of <b data-v="s1hgb"></b>, which looks impressive until it is compared with a baseline that only looks up each complaint type's historical rate: <b data-v="s1base"></b>.</p><p data-l="es">Primero planteé la tarea como una verificación estándar de SLA de 72 horas. El gradient boosting obtuvo un ROC-AUC de <b data-v="s1hgb"></b>, lo cual parece impresionante hasta que se compara con una línea base que solo consulta la tasa histórica de cada tipo de queja: <b data-v="s1base"></b>.</p>
+  <p class="muted" data-l="en">The reason is visible below. Parking and noise complaints are handled by NYPD in under two hours; housing-condition complaints handled by HPD take weeks. The complaint type already determines the outcome.</p><p class="muted" data-l="es">La razón se ve abajo. Las quejas de estacionamiento y ruido las atiende el NYPD en menos de dos horas; las de condiciones de vivienda, a cargo del HPD, tardan semanas. El tipo de queja ya determina el resultado.</p>
   <div class="grid2">
-    <div class="card"><h3>Share unresolved after 72 hours</h3><p class="sub">20 highest-volume complaint types</p><div id="c_types"></div></div>
-    <div class="card"><h3>Model vs. lookup table</h3><p class="sub">Test set (August 2026), 72-hour target</p><div class="tablewrap" id="t_s1"></div>
-      <div class="callout" style="margin:18px 0 0">A model that only matches a lookup table adds nothing a supervisor can use. <b>So I reframed the question.</b></div></div>
+    <div class="card"><h3><span data-l="en">Share unresolved after 72 hours</span><span data-l="es">Proporción sin resolver después de 72 horas</span></h3><p class="sub"><span data-l="en">20 highest-volume complaint types</span><span data-l="es">Los 20 tipos de queja con mayor volumen</span></p><div id="c_types"></div></div>
+    <div class="card"><h3><span data-l="en">Model vs. lookup table</span><span data-l="es">Modelo vs. tabla de consulta</span></h3><p class="sub"><span data-l="en">Test set (August 2026), 72-hour target</span><span data-l="es">Conjunto de prueba (agosto de 2026), objetivo de 72 horas</span></p><div class="tablewrap" id="t_s1"></div>
+      <div class="callout" style="margin:18px 0 0"><span data-l="en">A model that only matches a lookup table adds nothing a supervisor can use. <b>So I reframed the question.</b></span><span data-l="es">Un modelo que solo iguala una tabla de consulta no aporta nada que un supervisor pueda usar. <b>Por eso reformulé la pregunta.</b></span></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Study 2 · The useful question</div>
-  <h2>Which requests will run slow <em>compared with others of the same type</em>?</h2>
-  <p>New target: a request is <b>delayed</b> if it takes longer than the 75th-percentile resolution time for its complaint type, with thresholds learned from training months only. The type no longer predicts the outcome, so the model has to find signal in timing, location, agency load and request details.</p>
+  <div class="act" data-l="en">Study 2 · The useful question</div><div class="act" data-l="es">Estudio 2 · La pregunta útil</div>
+  <h2 data-l="en">Which requests will run slow <em>compared with others of the same type</em>?</h2><h2 data-l="es">¿Qué solicitudes irán lentas <em>en comparación con otras del mismo tipo</em>?</h2>
+  <p data-l="en">New target: a request is <b>delayed</b> if it takes longer than the 75th-percentile resolution time for its complaint type, with thresholds learned from training months only. The type no longer predicts the outcome, so the model has to find signal in timing, location, agency load and request details.</p><p data-l="es">Nuevo objetivo: una solicitud está <b>retrasada</b> si tarda más que el percentil 75 del tiempo de resolución de su tipo de queja, con umbrales aprendidos solo con los meses de entrenamiento. Ahora el tipo ya no predice el resultado, así que el modelo tiene que encontrar señal en el momento, la ubicación, la carga de la agencia y los detalles de la solicitud.</p>
   <div class="grid2">
-    <div class="card"><h3>What counts as "slow" differs ~200× by type</h3><p class="sub">75th-percentile resolution time (hours, log scale)</p><div id="c_p75"></div></div>
-    <div class="card"><h3>Cumulative gains on held-out August data</h3><p class="sub">Share of all delayed requests caught when reviewing the top-X% riskiest</p><div id="c_gains"></div><div class="legend" id="lg_gains"></div></div>
+    <div class="card"><h3><span data-l="en">What counts as "slow" differs ~200× by type</span><span data-l="es">Lo que cuenta como «lento» varía ~200× según el tipo</span></h3><p class="sub"><span data-l="en">75th-percentile resolution time (hours, log scale)</span><span data-l="es">Tiempo de resolución en el percentil 75 (horas, escala logarítmica)</span></p><div id="c_p75"></div></div>
+    <div class="card"><h3><span data-l="en">Cumulative gains on held-out August data</span><span data-l="es">Ganancias acumuladas en los datos reservados de agosto</span></h3><p class="sub"><span data-l="en">Share of all delayed requests caught when reviewing the top-X% riskiest</span><span data-l="es">Proporción de todas las solicitudes retrasadas detectadas al revisar el X% más riesgoso</span></p><div id="c_gains"></div><div class="legend" id="lg_gains"></div></div>
   </div>
   <div class="callout" id="s2call"></div>
   <div class="grid2">
-    <div class="card"><h3>Model comparison</h3><p class="sub">Test set, delayed-vs-peers target · base rate <span id="s2base"></span></p><div class="tablewrap" id="t_s2"></div></div>
-    <div class="card"><h3>What drives the predictions</h3><p class="sub">Permutation importance (drop in PR-AUC when shuffled)</p><div id="c_imp"></div></div>
+    <div class="card"><h3><span data-l="en">Model comparison</span><span data-l="es">Comparación de modelos</span></h3><p class="sub"><span data-l="en">Test set, delayed-vs-peers target · base rate </span><span data-l="es">Conjunto de prueba, objetivo retrasada-vs-pares · tasa base </span><span data-v="s2base"></span></p><div class="tablewrap" id="t_s2"></div></div>
+    <div class="card"><h3><span data-l="en">What drives the predictions</span><span data-l="es">Qué impulsa las predicciones</span></h3><p class="sub"><span data-l="en">Permutation importance (drop in PR-AUC when shuffled)</span><span data-l="es">Importancia por permutación (caída del PR-AUC al barajar la variable)</span></p><div id="c_imp"></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Exploration</div>
-  <h2>Patterns in six months of requests</h2>
-  <p class="muted">The weekday-daytime hot zone is mostly a <b>mix effect</b>: housing complaints, which are slow, get filed during business hours, while fast noise complaints peak at night. This kind of confounding is why Study 2 compares each request against its own type.</p>
-  <div class="card" style="margin-top:24px"><h3>Share missing 72 hours, by filing time</h3><p class="sub">Hover a cell for details</p><div id="c_heat"></div></div>
+  <div class="act" data-l="en">Exploration</div><div class="act" data-l="es">Exploración</div>
+  <h2 data-l="en">Patterns in six months of requests</h2><h2 data-l="es">Patrones en seis meses de solicitudes</h2>
+  <p class="muted" data-l="en">The weekday-daytime hot zone is mostly a <b>mix effect</b>: housing complaints, which are slow, get filed during business hours, while fast noise complaints peak at night. This kind of confounding is why Study 2 compares each request against its own type.</p><p class="muted" data-l="es">La zona caliente de días laborales en horario diurno es sobre todo un <b>efecto de mezcla</b>: las quejas de vivienda, que son lentas, se radican en horario de oficina, mientras que las quejas de ruido, que son rápidas, alcanzan su pico de noche. Este tipo de confusión es la razón por la que el Estudio 2 compara cada solicitud con su propio tipo.</p>
+  <div class="card" style="margin-top:24px"><h3><span data-l="en">Share missing 72 hours, by filing time</span><span data-l="es">Proporción que incumple las 72 horas, según la hora de radicación</span></h3><p class="sub"><span data-l="en">Hover a cell for details</span><span data-l="es">Pasa el cursor sobre una celda para ver detalles</span></p><div id="c_heat"></div></div>
   <div class="grid2">
-    <div class="card"><h3>By borough</h3><p class="sub">Median resolution time (hours)</p><div id="c_boro"></div></div>
-    <div class="card"><h3>By month</h3><p class="sub">Volume (bars, sampled) and 72h-miss rate (line)</p><div id="c_month"></div></div>
+    <div class="card"><h3><span data-l="en">By borough</span><span data-l="es">Por distrito</span></h3><p class="sub"><span data-l="en">Median resolution time (hours)</span><span data-l="es">Tiempo mediano de resolución (horas)</span></p><div id="c_boro"></div></div>
+    <div class="card"><h3><span data-l="en">By month</span><span data-l="es">Por mes</span></h3><p class="sub"><span data-l="en">Volume (bars, sampled) and 72h-miss rate (line)</span><span data-l="es">Volumen (barras, muestreado) y tasa de incumplimiento a 72 h (línea)</span></p><div id="c_month"></div></div>
   </div>
 </div></section>
 
 <section id="method"><div class="wrap">
-  <div class="act">Methodology</div>
-  <h2>How it was built</h2>
+  <div class="act" data-l="en">Methodology</div><div class="act" data-l="es">Metodología</div>
+  <h2 data-l="en">How it was built</h2><h2 data-l="es">Cómo se construyó</h2>
   <div class="steps">
-    <div class="card"><div class="n">01 · Data</div><h3>Live city API</h3><p>Pulled from the NYC Open Data Socrata API (1.98M requests, Mar–Aug 2026). A 20% systematic sample by ID keeps it laptop-sized. Quality rules are logged: closures before creation, 0-second auto-closures and midnight timestamps.</p></div>
-    <div class="card"><div class="n">02 · Features</div><h3>No leakage</h3><p>Only fields known at filing time: agency, type, descriptor, location type, channel, hour, weekday, holiday, coordinates, ZIP target-encoding (train-only), and each agency's open backlog at the moment of filing.</p></div>
-    <div class="card"><div class="n">03 · Evaluation</div><h3>Out of time</h3><p>Train Mar–Jun, tune on July, test once on August. Metrics suited to ranking under imbalance: PR-AUC, precision and recall at a 10% review budget, lift and Brier score. Accuracy is not used.</p></div>
+    <div class="card"><div class="n"><span data-l="en">01 · Data</span><span data-l="es">01 · Datos</span></div><h3><span data-l="en">Live city API</span><span data-l="es">API de la ciudad en vivo</span></h3><p data-l="en">Pulled from the NYC Open Data Socrata API (1.98M requests, Mar–Aug 2026). A 20% systematic sample by ID keeps it laptop-sized. Quality rules are logged: closures before creation, 0-second auto-closures and midnight timestamps.</p><p data-l="es">Extraído de la API Socrata de NYC Open Data (1,98 millones de solicitudes, mar–ago 2026). Una muestra sistemática del 20% por ID lo mantiene del tamaño de un portátil. Se registran las reglas de calidad: cierres anteriores a la creación, cierres automáticos de 0 segundos y marcas de tiempo a medianoche.</p></div>
+    <div class="card"><div class="n"><span data-l="en">02 · Features</span><span data-l="es">02 · Variables</span></div><h3><span data-l="en">No leakage</span><span data-l="es">Sin fuga de información</span></h3><p data-l="en">Only fields known at filing time: agency, type, descriptor, location type, channel, hour, weekday, holiday, coordinates, ZIP target-encoding (train-only), and each agency's open backlog at the moment of filing.</p><p data-l="es">Solo campos conocidos al momento de radicar: agencia, tipo, descriptor, tipo de ubicación, canal, hora, día de la semana, festivo, coordenadas, codificación objetivo del ZIP (solo con entrenamiento) y el rezago abierto de cada agencia en el momento de la radicación.</p></div>
+    <div class="card"><div class="n"><span data-l="en">03 · Evaluation</span><span data-l="es">03 · Evaluación</span></div><h3><span data-l="en">Out of time</span><span data-l="es">Validación fuera de tiempo</span></h3><p data-l="en">Train Mar–Jun, tune on July, test once on August. Metrics suited to ranking under imbalance: PR-AUC, precision and recall at a 10% review budget, lift and Brier score. Accuracy is not used.</p><p data-l="es">Entrenamiento de mar a jun, ajuste en julio y una sola prueba en agosto. Métricas adecuadas para ranking con clases desbalanceadas: PR-AUC, precisión y recall con un presupuesto de revisión del 10%, lift y puntaje de Brier. No se usa la exactitud (accuracy).</p></div>
   </div>
-  <h3 style="margin-top:36px">Limitations, stated honestly</h3>
+  <h3 style="margin-top:36px"><span data-l="en">Limitations, stated honestly</span><span data-l="es">Limitaciones, dichas con honestidad</span></h3>
   <ul class="tight">
-    <li>The backlog feature is computed on a 20% sample, so it measures relative load, not true open counts.</li>
-    <li>"Closed" in 311 means an agency closed the ticket, not necessarily that the problem was fixed. Some closures are administrative.</li>
-    <li>July and August ran slower than training months, so thresholds learned in spring drift. A production version would re-fit thresholds on a rolling window.</li>
-    <li>ROC-AUC of 0.68 is modest. The value is in ranking: the top decile is ~2× richer in delays than random.</li>
+    <li data-l="en">The backlog feature is computed on a 20% sample, so it measures relative load, not true open counts.</li><li data-l="es">La variable de rezago se calcula sobre una muestra del 20%, así que mide la carga relativa, no los conteos reales de solicitudes abiertas.</li>
+    <li data-l="en">"Closed" in 311 means an agency closed the ticket, not necessarily that the problem was fixed. Some closures are administrative.</li><li data-l="es">«Cerrada» en el 311 significa que una agencia cerró el caso, no necesariamente que el problema se haya solucionado. Algunos cierres son administrativos.</li>
+    <li data-l="en">July and August ran slower than training months, so thresholds learned in spring drift. A production version would re-fit thresholds on a rolling window.</li><li data-l="es">Julio y agosto fueron más lentos que los meses de entrenamiento, por lo que los umbrales aprendidos en primavera se desajustan. Una versión de producción reajustaría los umbrales con una ventana móvil.</li>
+    <li data-l="en">ROC-AUC of 0.68 is modest. The value is in ranking: the top decile is ~2× richer in delays than random.</li><li data-l="es">Un ROC-AUC de 0,68 es modesto. El valor está en el ranking: el decil superior es ~2× más rico en retrasos que el azar.</li>
   </ul>
 </div></section>
 
-<footer><div class="wrap">Data: NYC Open Data, 311 Service Requests (erm2-nwe9). Built with Python, pandas and scikit-learn. Charts are hand-drawn SVG with no dependencies.</div></footer>
+<footer><div class="wrap"><span data-l="en">Data: NYC Open Data, 311 Service Requests (erm2-nwe9). Built with Python, pandas and scikit-learn. Charts are hand-drawn SVG with no dependencies.</span><span data-l="es">Datos: NYC Open Data, 311 Service Requests (erm2-nwe9). Construido con Python, pandas y scikit-learn. Los gráficos son SVG dibujados a mano, sin dependencias.</span></div></footer>
 
 <script>
 const D = /*__DATA__*/null;
+const L={en:{
+  title:'NYC 311 Delays',
+  kpi1:'requests analyzed (20% sample)',kpi2:'unresolved after 72 hours',kpi3:'median resolution time',kpi4:'delay rate in top-10% flags vs. average',
+  model:'Model',lookup:'Lookup table (type rate)',logreg:'Logistic regression',hgb:'Gradient boosting',
+  requests:'requests',missed72:'missed 72h',median:'median',slowif:'slow if >',days:'days',
+  budget:'10% review budget',xlab:'share of requests reviewed (riskiest first)',random:'Random',review:x=>`Review top <b>${x}</b>`,
+  sampled:'sampled requests',
+  days7:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+  s2call:(h,b,r,l,a)=>`If supervisors can review <b>10% of incoming requests</b>, the model's picks are delayed <b>${h}</b> of the time, against <b>${b}</b> for the lookup table and <b>${r}</b> at random. That is <b>${l}× lift</b>. The lookup table now ranks barely above chance (ROC-AUC ${a}), so the signal comes from somewhere other than complaint type.`,
+  feat:{}
+},es:{
+  title:'Retrasos del 311 de NYC',
+  kpi1:'solicitudes analizadas (muestra del 20%)',kpi2:'sin resolver después de 72 horas',kpi3:'tiempo mediano de resolución',kpi4:'tasa de retraso en el 10% superior señalado vs. el promedio',
+  model:'Modelo',lookup:'Tabla de consulta (tasa por tipo)',logreg:'Regresión logística',hgb:'Gradient boosting',
+  requests:'solicitudes',missed72:'incumplieron las 72 h',median:'mediana',slowif:'lenta si >',days:'días',
+  budget:'presupuesto de revisión del 10%',xlab:'proporción de solicitudes revisadas (las más riesgosas primero)',random:'Azar',review:x=>`Revisar el <b>${x}</b> más riesgoso`,
+  sampled:'solicitudes muestreadas',
+  days7:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],
+  s2call:(h,b,r,l,a)=>`Si los supervisores pueden revisar el <b>10% de las solicitudes entrantes</b>, las que el modelo elige están retrasadas el <b>${h}</b> de las veces, frente al <b>${b}</b> de la tabla de consulta y el <b>${r}</b> al azar. Eso es un <b>lift de ${l}×</b>. La tabla de consulta ahora apenas supera el azar (ROC-AUC ${a}), así que la señal viene de algo distinto del tipo de queja.`,
+  feat:{agency:'agencia',complaint_type:'tipo de queja',hour:'hora',descriptor:'descriptor',zip_te:'ZIP (codificado)',location_type:'tipo de ubicación',weekday:'día de la semana',latitude:'latitud',agency_backlog_7d:'rezago de la agencia (7 d)',borough:'distrito',longitude:'longitud',agency_volume_7d:'volumen de la agencia (7 d)'}
+}};
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const pct = (x,d=0) => (x*100).toFixed(d)+'%';
-const fmt = n => n.toLocaleString('en-US');
+let lang=document.documentElement.lang==='es'?'es':'en';
+const loc=()=>lang==='es'?'es-CO':'en-US';
+const nf=(x,d=0)=>x.toLocaleString(loc(),{minimumFractionDigits:d,maximumFractionDigits:d});
+const tr=k=>{const v=L[lang][k];return v===undefined?L.en[k]:v};
+const setv=(n,t)=>document.querySelectorAll('[data-v="'+n+'"]').forEach(e=>e.textContent=t);
+const mon=(d,o)=>d.toLocaleDateString(loc(),o).replace(/[.]/g,'');
+function setLang(l,save){
+  lang=l;document.documentElement.lang=l;
+  if(save){try{localStorage.setItem('lang',l);localStorage.setItem('cv-lang',l)}catch(e){}}
+  try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  document.querySelectorAll('.lt span').forEach(s=>s.classList.toggle('on',s.dataset.c===l));
+  document.querySelectorAll('a[data-keep]').forEach(a=>{if(!a.dataset.base)a.dataset.base=a.getAttribute('href');a.href=a.dataset.base+'?lang='+l});
+  document.title=tr('title');
+}
+document.getElementById('langbtn').onclick=()=>{setLang(lang==='es'?'en':'es',true);render()};
+const pct = (x,d=0) => nf(x*100,d)+'%';
+const fmt = n => n.toLocaleString(loc());
+const f1 = (x,d=1) => nf(x,d);
+const feat = f => L[lang].feat[f]||f.replace(/_/g,' ');
 const NS='http://www.w3.org/2000/svg';
 function el(tag, attrs={}, parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
 function svg(host,w,h){const s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img'});document.getElementById(host).appendChild(s);return s}
 function txt(p,x,y,t,a={}){const e=el('text',{x,y,...a},p);e.textContent=t;return e}
 const tip=document.getElementById('tip');
 function hover(node,html){node.addEventListener('mousemove',e=>{tip.innerHTML=html;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tip.style.top=(e.clientY+12)+'px'});node.addEventListener('mouseleave',()=>tip.style.opacity=0)}
-const NAMES={baseline_complaint_rate:'Lookup table (type rate)',logistic_regression:'Logistic regression',hist_gradient_boosting:'Gradient boosting'};
+const NAMES=new Proxy({},{get:(_,k)=>({baseline_complaint_rate:tr('lookup'),logistic_regression:tr('logreg'),hist_gradient_boosting:tr('hgb')})[k]});
+const NKEYS=['baseline_complaint_rate','logistic_regression','hist_gradient_boosting'];
 const titleCase = s => s===s.toUpperCase()? s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\/(\w)/g,(m,c)=>'/'+c.toUpperCase()) : s;
 
 function hbars(host,rows,{fmtV,max,color,log=false,minV=1}){
@@ -178,42 +230,42 @@ function render(){
   document.querySelectorAll('svg').forEach(n=>n.remove());
   const k=D.kpis, s2=D.study2.model_comparison.test, s1=D.model_comparison.test;
   document.getElementById('kpis').innerHTML=[
-    [fmt(k.n_requests),'requests analyzed (20% sample)'],
-    [pct(k.base_missed_rate),'unresolved after 72 hours'],
-    [k.median_resolution_hours.toFixed(1)+'h','median resolution time'],
-    [s2.hist_gradient_boosting.lift_top10.toFixed(1)+'×','delay rate in top-10% flags vs. average']
+    [fmt(k.n_requests),tr('kpi1')],
+    [pct(k.base_missed_rate),tr('kpi2')],
+    [f1(k.median_resolution_hours)+'h',tr('kpi3')],
+    [f1(s2.hist_gradient_boosting.lift_top10)+'×',tr('kpi4')]
   ].map(([v,l])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
-  document.getElementById('s1hgb').textContent=s1.hist_gradient_boosting.roc_auc.toFixed(3);
-  document.getElementById('s1base').textContent=s1.baseline_complaint_rate.roc_auc.toFixed(3);
-  document.getElementById('s2base').textContent=pct(D.study2.model_comparison.base_rate_test,1);
+  setv('s1hgb',f1(s1.hist_gradient_boosting.roc_auc,3));
+  setv('s1base',f1(s1.baseline_complaint_rate.roc_auc,3));
+  setv('s2base',pct(D.study2.model_comparison.base_rate_test,1));
   const h=s2.hist_gradient_boosting,b=s2.baseline_complaint_rate;
-  document.getElementById('s2call').innerHTML=`If supervisors can review <b>10% of incoming requests</b>, the model's picks are delayed <b>${pct(h.precision_top10)}</b> of the time, against <b>${pct(b.precision_top10)}</b> for the lookup table and <b>${pct(D.study2.model_comparison.base_rate_test)}</b> at random. That is <b>${h.lift_top10.toFixed(2)}× lift</b>. The lookup table now ranks barely above chance (ROC-AUC ${b.roc_auc.toFixed(2)}), so the signal comes from somewhere other than complaint type.`;
+  document.getElementById('s2call').innerHTML=tr('s2call')(pct(h.precision_top10),pct(b.precision_top10),pct(D.study2.model_comparison.base_rate_test),f1(h.lift_top10,2),f1(b.roc_auc,2));
 
   const accent=css('--accent'),gray=css('--gray'),cool=css('--cool'),line=css('--line'),ink=css('--ink');
 
   // complaint types
   const ct=[...D.by_complaint_type].sort((a,b)=>b.missed_rate-a.missed_rate);
-  hbars('c_types',ct.map(r=>({label:titleCase(r.complaint_type),v:r.missed_rate,n:r.n,tip:`<b>${titleCase(r.complaint_type)}</b><br>${fmt(r.n)} requests<br>${pct(r.missed_rate,1)} missed 72h<br>median ${r.median_hours.toFixed(1)}h`})),
+  hbars('c_types',ct.map(r=>({label:titleCase(r.complaint_type),v:r.missed_rate,n:r.n,tip:`<b>${titleCase(r.complaint_type)}</b><br>${fmt(r.n)} ${tr('requests')}<br>${pct(r.missed_rate,1)} ${tr('missed72')}<br>${tr('median')} ${f1(r.median_hours)}h`})),
     {fmtV:v=>pct(v),max:1,color:r=>r.v>k.base_missed_rate?accent:gray});
 
   // model tables
   const table=(id,m,best)=>{const cols=[['roc_auc','ROC-AUC'],['pr_auc','PR-AUC'],['precision_top10','Prec@10%'],['lift_top10','Lift@10%']];
-    document.getElementById(id).innerHTML=`<table><tr><th>Model</th>${cols.map(c=>`<th>${c[1]}</th>`).join('')}</tr>${Object.keys(NAMES).map(n=>`<tr class="${n===best?'best':''}"><td>${NAMES[n]}</td>${cols.map(c=>`<td class="num">${c[0].startsWith('lift')?m[n][c[0]].toFixed(2)+'×':m[n][c[0]].toFixed(3)}</td>`).join('')}</tr>`).join('')}</table>`};
+    document.getElementById(id).innerHTML=`<table><tr><th>${tr('model')}</th>${cols.map(c=>`<th>${c[1]}</th>`).join('')}</tr>${NKEYS.map(n=>`<tr class="${n===best?'best':''}"><td>${NAMES[n]}</td>${cols.map(c=>`<td class="num">${c[0].startsWith('lift')?f1(m[n][c[0]],2)+'×':f1(m[n][c[0]],3)}</td>`).join('')}</tr>`).join('')}</table>`};
   table('t_s1',s1,D.model_comparison.best_model);
   table('t_s2',s2,D.study2.model_comparison.best_model);
 
   // p75 thresholds
   const p=Object.entries(D.study2.p75_threshold_hours).map(([t,v])=>({label:titleCase(t),v})).sort((a,b)=>b.v-a.v);
-  hbars('c_p75',p.map(r=>({...r,tip:`<b>${r.label}</b><br>slow if > ${r.v.toFixed(1)}h (${(r.v/24).toFixed(1)} days)`})),
-    {fmtV:v=>v>=48?(v/24).toFixed(0)+'d':v.toFixed(1)+'h',max:700,log:true,minV:1,color:()=>cool});
+  hbars('c_p75',p.map(r=>({...r,tip:`<b>${r.label}</b><br>${tr('slowif')} ${f1(r.v)}h (${f1(r.v/24)} ${tr('days')})`})),
+    {fmtV:v=>v>=48?f1(v/24,0)+'d':f1(v)+'h',max:700,log:true,minV:1,color:()=>cool});
 
   // gains curve
   {const w=480,hh=320,m={l:40,r:12,t:10,b:34},W=w-m.l-m.r,H=hh-m.t-m.b;const s=svg('c_gains',w,hh);
    const X=v=>m.l+v*W,Y=v=>m.t+H-v*H;
    [0,.25,.5,.75,1].forEach(t=>{el('line',{x1:X(0),x2:X(1),y1:Y(t),y2:Y(t),stroke:line},s);txt(s,m.l-6,Y(t)+4,pct(t),{'text-anchor':'end'});txt(s,X(t),hh-14,pct(t),{'text-anchor':'middle'})});
-   txt(s,X(.5),hh,'share of requests reviewed (riskiest first)',{'text-anchor':'middle'});
+   txt(s,X(.5),hh,tr('xlab'),{'text-anchor':'middle'});
    el('rect',{x:X(0),y:m.t,width:X(.1)-X(0),height:H,fill:css('--accent-soft')},s);
-   txt(s,X(.1)+4,m.t+12,'10% review budget',{style:'font-size:10px'});
+   txt(s,X(.1)+4,m.t+12,tr('budget'),{style:'font-size:10px'});
    el('line',{x1:X(0),y1:Y(0),x2:X(1),y2:Y(1),stroke:gray,'stroke-dasharray':'4 4'},s);
    const series=[['baseline_complaint_rate',gray],['logistic_regression',cool],['hist_gradient_boosting',accent]];
    series.forEach(([n,c])=>{const pts=D.study2.gains_curves[n];el('polyline',{points:pts.map(q=>X(q[0])+','+Y(q[1])).join(' '),fill:'none',stroke:c,'stroke-width':n==='hist_gradient_boosting'?2.5:1.75},s)});
@@ -221,36 +273,37 @@ function render(){
    const ov=el('rect',{x:m.l,y:m.t,width:W,height:H,fill:'transparent'},s);
    ov.addEventListener('mousemove',e=>{const r=s.getBoundingClientRect();const fx=((e.clientX-r.left)/r.width*w-m.l)/W;const near=pts=>pts.reduce((a,q)=>Math.abs(q[0]-fx)<Math.abs(a[0]-fx)?q:a);
      const q=near(hb);cross.setAttribute('x1',X(q[0]));cross.setAttribute('x2',X(q[0]));cross.setAttribute('opacity',.35);
-     tip.innerHTML=`Review top <b>${pct(q[0])}</b><br>${series.map(([n])=>`${NAMES[n]}: <b>${pct(near(D.study2.gains_curves[n])[1])}</b>`).join('<br>')}<br>Random: ${pct(q[0])}`;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tip.style.top=(e.clientY+12)+'px'});
+     tip.innerHTML=`${tr('review')(pct(q[0]))}<br>${series.map(([n])=>`${NAMES[n]}: <b>${pct(near(D.study2.gains_curves[n])[1])}</b>`).join('<br>')}<br>${tr('random')}: ${pct(q[0])}`;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tip.style.top=(e.clientY+12)+'px'});
    ov.addEventListener('mouseleave',()=>{tip.style.opacity=0;cross.setAttribute('opacity',0)});
-   document.getElementById('lg_gains').innerHTML=series.map(([n,c])=>`<span><i style="background:${c}"></i>${NAMES[n]}</span>`).join('')+`<span><i style="background:${gray};opacity:.5"></i>Random</span>`;}
+   document.getElementById('lg_gains').innerHTML=series.map(([n,c])=>`<span><i style="background:${c}"></i>${NAMES[n]}</span>`).join('')+`<span><i style="background:${gray};opacity:.5"></i>${tr('random')}</span>`;}
 
   // importance
   const imp=[...D.study2.feature_importance].sort((a,b)=>b.importance-a.importance);const mi=imp[0].importance;
-  hbars('c_imp',imp.map(r=>({label:r.feature.replace(/_/g,' '),v:Math.max(r.importance,0)})),{fmtV:v=>v.toFixed(3),max:mi,color:r=>r.v===mi?accent:cool});
+  hbars('c_imp',imp.map(r=>({label:feat(r.feature),v:Math.max(r.importance,0)})),{fmtV:v=>f1(v,3),max:mi,color:r=>r.v===mi?accent:cool});
 
   // heatmap
-  {const w=960,cw=(w-50)/24,ch=24,hh=7*ch+26;const s=svg('c_heat',w,hh);const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  {const w=960,cw=(w-50)/24,ch=24,hh=7*ch+26;const s=svg('c_heat',w,hh);const days=tr('days7');
    const vals=D.hour_weekday.map(r=>r.missed_rate);const lo=Math.min(...vals),hi=Math.max(...vals);
    D.hour_weekday.forEach(r=>{const t=(r.missed_rate-lo)/(hi-lo);const c=el('rect',{x:50+r.hour*cw+1,y:r.weekday*ch+1,width:cw-2,height:ch-2,rx:3,fill:accent,'fill-opacity':(0.08+t*0.92).toFixed(3)},s);
-     hover(c,`<b>${days[r.weekday]} ${String(r.hour).padStart(2,'0')}:00</b><br>${pct(r.missed_rate,1)} missed 72h<br>${fmt(r.n)} requests`)});
+     hover(c,`<b>${days[r.weekday]} ${String(r.hour).padStart(2,'0')}:00</b><br>${pct(r.missed_rate,1)} ${tr('missed72')}<br>${fmt(r.n)} ${tr('requests')}`)});
    days.forEach((d,i)=>txt(s,42,i*ch+16,d,{'text-anchor':'end'}));
    [0,3,6,9,12,15,18,21].forEach(hr=>txt(s,50+hr*cw+cw/2,7*ch+18,String(hr).padStart(2,'0')+':00',{'text-anchor':'middle'}));}
 
   // borough
   const bo=[...D.by_borough].sort((a,b)=>b.median_hours-a.median_hours);const mb=bo[0].median_hours;
-  hbars('c_boro',bo.map(r=>({label:titleCase(r.borough),v:r.median_hours,tip:`<b>${titleCase(r.borough)}</b><br>${fmt(r.n)} requests<br>${pct(r.missed_rate,1)} missed 72h`})),{fmtV:v=>v.toFixed(1)+'h',max:mb*1.05,color:r=>r.v===mb?accent:gray});
+  hbars('c_boro',bo.map(r=>({label:titleCase(r.borough),v:r.median_hours,tip:`<b>${titleCase(r.borough)}</b><br>${fmt(r.n)} ${tr('requests')}<br>${pct(r.missed_rate,1)} ${tr('missed72')}`})),{fmtV:v=>f1(v)+'h',max:mb*1.05,color:r=>r.v===mb?accent:gray});
 
   // monthly
   {const w=480,hh=200,m={l:40,r:40,t:10,b:26},W=w-m.l-m.r,H=hh-m.t-m.b;const s=svg('c_month',w,hh);const ms=D.monthly;const bw=W/ms.length;
    const mx=Math.max(...ms.map(r=>r.n));const rmax=.4;
    ms.forEach((r,i)=>{const bh=r.n/mx*H*.85;const b=el('rect',{x:m.l+i*bw+bw*.2,y:m.t+H-bh,width:bw*.6,height:bh,rx:3,fill:css('--cool-soft'),stroke:cool,'stroke-opacity':.3},s);
-     hover(b,`<b>${r.month}</b><br>${fmt(r.n)} sampled requests<br>${pct(r.missed_rate,1)} missed 72h<br>median ${r.median_hours.toFixed(1)}h`);
-     txt(s,m.l+i*bw+bw/2,hh-8,new Date(r.month+'-15').toLocaleString('en-US',{month:'short'}),{'text-anchor':'middle'})});
+     hover(b,`<b>${r.month}</b><br>${fmt(r.n)} ${tr('sampled')}<br>${pct(r.missed_rate,1)} ${tr('missed72')}<br>${tr('median')} ${f1(r.median_hours)}h`);
+     txt(s,m.l+i*bw+bw/2,hh-8,mon(new Date(r.month+'-15'),{month:'short'}),{'text-anchor':'middle'})});
    const Y=v=>m.t+H-v/rmax*H;
    el('polyline',{points:ms.map((r,i)=>(m.l+i*bw+bw/2)+','+Y(r.missed_rate)).join(' '),fill:'none',stroke:accent,'stroke-width':2.5},s);
    ms.forEach((r,i)=>{el('circle',{cx:m.l+i*bw+bw/2,cy:Y(r.missed_rate),r:3.5,fill:accent},s);txt(s,m.l+i*bw+bw/2,Y(r.missed_rate)-9,pct(r.missed_rate),{class:'val','text-anchor':'middle'})});}
 }
+setLang(lang,false);
 render();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render);
 </script>

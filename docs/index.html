@@ -29,35 +29,63 @@ a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .soon{border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;min-height:180px}
 footer{margin-top:56px;color:var(--muted);font-size:14px}
 footer a{color:inherit}
+[data-l="es"]{display:none}
+html[lang="es"] [data-l="en"]{display:none}
+html[lang="es"] [data-l="es"]{display:revert}
+.lt span{opacity:.5}.lt span.on{opacity:1;font-weight:700}
+.btn{font:500 14px Inter,sans-serif;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer;display:inline-block}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin:-32px 0 40px}
 </style>
+<script>
+(function(){var q=new URLSearchParams(location.search).get('lang'),l=null;
+if(q==='es'||q==='en')l=q;else{try{l=localStorage.getItem('lang')||localStorage.getItem('cv-lang')}catch(e){}}
+if(l!=='es'&&l!=='en')l=(navigator.language||'').toLowerCase().startsWith('es')?'es':'en';
+document.documentElement.lang=l})();
+</script>
 </head>
 <body>
 <div class="wrap">
-  <div class="eyebrow">Data Science Portfolio</div>
-  <h1>Real data, honest models</h1>
-  <p class="lede">End-to-end projects built on live public datasets, each covering data collection, cleaning, modeling, out-of-sample evaluation and an interactive write-up.</p>
-  <p style="margin:-32px 0 40px"><a href="cv/" style="font:500 14px Inter,sans-serif;padding:9px 14px;border-radius:8px;background:var(--ink);color:var(--bg);text-decoration:none">View CV</a></p>
+  <div class="eyebrow" data-l="en">Data Science Portfolio</div><div class="eyebrow" data-l="es">Portafolio de ciencia de datos</div>
+  <h1 data-l="en">Real data, honest models</h1><h1 data-l="es">Datos reales, modelos honestos</h1>
+  <p class="lede" data-l="en">End-to-end projects built on live public datasets, each covering data collection, cleaning, modeling, out-of-sample evaluation and an interactive write-up.</p><p class="lede" data-l="es">Proyectos de punta a punta sobre conjuntos de datos públicos en vivo, cada uno con recolección de datos, limpieza, modelado, evaluación fuera de muestra y un informe interactivo.</p>
+  <div class="links"><a class="btn primary" href="cv/" data-keep><span data-l="en">View CV</span><span data-l="es">Ver CV</span></a> <button class="btn lt" id="langbtn" type="button" aria-label="Language / Idioma"><span data-c="en">EN</span> | <span data-c="es">ES</span></button></div>
   <div class="grid">
-    <a class="card" href="nyc-311-delays/">
-      <div class="stat">2.2× lift at a 10% review budget</div>
-      <h2>Which NYC 311 complaints will fall behind?</h2>
-      <p>Flagging city service requests likely to be resolved slower than comparable ones, from ~400k requests on the NYC Open Data API.</p>
-      <div class="tags"><span>classification</span><span>pandas</span><span>scikit-learn</span><span>API data</span></div>
+    <a class="card" href="nyc-311-delays/" data-keep>
+      <div class="stat" data-l="en">2.2× lift at a 10% review budget</div><div class="stat" data-l="es">Lift de 2,2× con un presupuesto de revisión del 10%</div>
+      <h2 data-l="en">Which NYC 311 complaints will fall behind?</h2><h2 data-l="es">¿Qué quejas del 311 de NYC se van a retrasar?</h2>
+      <p data-l="en">Flagging city service requests likely to be resolved slower than comparable ones, from ~400k requests on the NYC Open Data API.</p><p data-l="es">Señalar las solicitudes de servicio de la ciudad con probabilidad de resolverse más lento que otras comparables, a partir de ~400 mil solicitudes de la API de NYC Open Data.</p>
+      <div class="tags"><span data-l="en">classification</span><span data-l="es">clasificación</span><span>pandas</span><span>scikit-learn</span><span data-l="en">API data</span><span data-l="es">datos de API</span></div>
     </a>
-    <a class="card" href="gb-electricity-demand/">
-      <div class="stat">Blend beats the grid operator by 6.7%</div>
-      <h2>Can I out-forecast Britain's grid operator?</h2>
-      <p>Day-ahead half-hourly electricity demand forecasts compared with NESO's official forecasts over 463 unseen days.</p>
-      <div class="tags"><span>time series</span><span>forecasting</span><span>prediction intervals</span><span>weather data</span></div>
+    <a class="card" href="gb-electricity-demand/" data-keep>
+      <div class="stat" data-l="en">Blend beats the grid operator by 6.7%</div><div class="stat" data-l="es">La mezcla supera al operador de la red en un 6,7%</div>
+      <h2 data-l="en">Can I out-forecast Britain's grid operator?</h2><h2 data-l="es">¿Puedo pronosticar mejor que el operador de la red de Gran Bretaña?</h2>
+      <p data-l="en">Day-ahead half-hourly electricity demand forecasts compared with NESO's official forecasts over 463 unseen days.</p><p data-l="es">Pronósticos de demanda eléctrica por media hora con un día de anticipación, comparados con los pronósticos oficiales de NESO sobre 463 días no vistos.</p>
+      <div class="tags"><span data-l="en">time series</span><span data-l="es">series de tiempo</span><span data-l="en">forecasting</span><span data-l="es">pronóstico</span><span data-l="en">prediction intervals</span><span data-l="es">intervalos de predicción</span><span data-l="en">weather data</span><span data-l="es">datos del clima</span></div>
     </a>
-    <a class="card" href="email-uplift/">
-      <div class="stat">$131 per 1,000 sends, 95% CI $46–$216</div>
-      <h2>Who should get the email?</h2>
-      <p>An A/B test readout and uplift-modeling analysis of a 64,000-customer randomized experiment, ending in a shipping decision.</p>
-      <div class="tags"><span>A/B testing</span><span>causal inference</span><span>uplift modeling</span><span>statistics</span></div>
+    <a class="card" href="email-uplift/" data-keep>
+      <div class="stat" data-l="en">$131 per 1,000 sends, 95% CI $46–$216</div><div class="stat" data-l="es">US$131 por cada 1.000 envíos, IC del 95%: US$46–US$216</div>
+      <h2 data-l="en">Who should get the email?</h2><h2 data-l="es">¿Quién debería recibir el correo?</h2>
+      <p data-l="en">An A/B test readout and uplift-modeling analysis of a 64,000-customer randomized experiment, ending in a shipping decision.</p><p data-l="es">Una lectura de prueba A/B y un análisis de modelado de uplift de un experimento aleatorizado con 64.000 clientes, que termina en una decisión de lanzamiento.</p>
+      <div class="tags"><span data-l="en">A/B testing</span><span data-l="es">pruebas A/B</span><span data-l="en">causal inference</span><span data-l="es">inferencia causal</span><span data-l="en">uplift modeling</span><span data-l="es">modelado de uplift</span><span data-l="en">statistics</span><span data-l="es">estadística</span></div>
     </a>
   </div>
-  <footer><a href="cv/">CV</a> · <a href="cv/cv-en.pdf">PDF (EN)</a> · <a href="cv/cv-es.pdf">PDF (ES)</a> · <a href="https://github.com/soushiki/data-science">Source on GitHub</a></footer>
+  <footer><a href="cv/" data-keep>CV</a> · <a href="cv/cv-en.pdf">PDF (EN)</a> · <a href="cv/cv-es.pdf">PDF (ES)</a> · <a href="https://github.com/soushiki/data-science"><span data-l="en">Source on GitHub</span><span data-l="es">Código en GitHub</span></a></footer>
 </div>
+<script>
+let lang=document.documentElement.lang==='es'?'es':'en';
+const TT={en:['Data Science Portfolio','End-to-end data science projects on real public data by Sebastian Herrera.'],es:['Portafolio de ciencia de datos','Proyectos de ciencia de datos de punta a punta sobre datos públicos reales, por Sebastian Herrera.']};
+function setLang(l,save){
+  lang=l;document.documentElement.lang=l;
+  if(save){try{localStorage.setItem('lang',l);localStorage.setItem('cv-lang',l)}catch(e){}}
+  try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  document.querySelectorAll('.lt span').forEach(s=>s.classList.toggle('on',s.dataset.c===l));
+  document.querySelectorAll('a[data-keep]').forEach(a=>{if(!a.dataset.base)a.dataset.base=a.getAttribute('href');a.href=a.dataset.base+'?lang='+l});
+  document.title=TT[l][0];
+  const m=document.querySelector('meta[name="description"]');if(m)m.content=TT[l][1];
+}
+document.getElementById('langbtn').onclick=()=>setLang(lang==='es'?'en':'es',true);
+setLang(lang,false);
+</script>
 </body>
 </html>

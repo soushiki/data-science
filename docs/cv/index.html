@@ -61,7 +61,7 @@ html[lang="es"] [data-l="es"]{display:revert}
   <button data-set="es" aria-pressed="false">Español</button>
   <a href="cv-en.pdf" data-l="en">Download PDF</a>
   <a href="cv-es.pdf" data-l="es">Descargar PDF</a>
-  <a href="../">Portfolio</a>
+  <a href="../" data-keep>Portfolio</a>
 </div>
 
 <main class="page">
@@ -154,12 +154,15 @@ function setLang(l){
   document.documentElement.lang=l;
   document.title=l==='es'?'Sebastian Herrera CV':'Sebastian Herrera CV';
   document.querySelectorAll('[data-set]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.set===l));
-  try{localStorage.setItem('cv-lang',l)}catch(e){}
+  try{localStorage.setItem('lang',l);localStorage.setItem('cv-lang',l)}catch(e){}
+  try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  document.querySelectorAll('a[data-keep]').forEach(a=>{if(!a.dataset.base)a.dataset.base=a.getAttribute('href');a.href=a.dataset.base+'?lang='+l});
 }
 document.querySelectorAll('[data-set]').forEach(b=>b.onclick=()=>setLang(b.dataset.set));
 let start=new URLSearchParams(location.search).get('lang');
-if(!start){try{start=localStorage.getItem('cv-lang')}catch(e){}}
-setLang(start==='es'?'es':'en');
+if(start!=='es'&&start!=='en'){start=null;try{start=localStorage.getItem('lang')||localStorage.getItem('cv-lang')}catch(e){}}
+if(start!=='es'&&start!=='en')start=(navigator.language||'').toLowerCase().startsWith('es')?'es':'en';
+setLang(start);
 </script>
 </body>
 </html>

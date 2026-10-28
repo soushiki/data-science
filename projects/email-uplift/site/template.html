@@ -78,101 +78,181 @@ footer{padding:40px 0 64px;color:var(--muted);font-size:14px}
   .kpis{grid-template-columns:repeat(2,1fr)}
   header.hero{padding-top:48px}
 }
+[data-l="es"]{display:none}
+html[lang="es"] [data-l="en"]{display:none}
+html[lang="es"] [data-l="es"]{display:revert}
+.lt span{opacity:.5}.lt span.on{opacity:1;font-weight:700}
 </style>
+<script>
+(function(){var q=new URLSearchParams(location.search).get('lang'),l=null;
+if(q==='es'||q==='en')l=q;else{try{l=localStorage.getItem('lang')||localStorage.getItem('cv-lang')}catch(e){}}
+if(l!=='es'&&l!=='en')l=(navigator.language||'').toLowerCase().startsWith('es')?'es':'en';
+document.documentElement.lang=l})();
+</script>
 </head>
 <body>
 <div class="tip" id="tip"></div>
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">Case study · Randomized experiment · 64,000 customers</div>
-  <h1>Who should get the email?</h1>
-  <p class="lede">A retailer randomly split 64,000 customers three ways: a men's merchandise email, a women's merchandise email, or no email. I analyzed it the way a product data science team would. First, is the test trustworthy? Then, did the emails work? Finally, can a model pick <em>who</em> to email better than a simple rule?</p>
+  <div class="eyebrow" data-l="en">Case study · Randomized experiment · 64,000 customers</div><div class="eyebrow" data-l="es">Caso de estudio · Experimento aleatorizado · 64.000 clientes</div>
+  <h1 data-l="en">Who should get the email?</h1><h1 data-l="es">¿Quién debería recibir el correo?</h1>
+  <p class="lede" data-l="en">A retailer randomly split 64,000 customers three ways: a men's merchandise email, a women's merchandise email, or no email. I analyzed it the way a product data science team would. First, is the test trustworthy? Then, did the emails work? Finally, can a model pick <em>who</em> to email better than a simple rule?</p><p class="lede" data-l="es">Un minorista dividió al azar a 64.000 clientes en tres grupos: un correo con mercancía para hombres, un correo con mercancía para mujeres, o ningún correo. Lo analicé como lo haría un equipo de ciencia de datos de producto. Primero, ¿es confiable la prueba? Luego, ¿funcionaron los correos? Por último, ¿puede un modelo elegir <em>a quién</em> enviarle el correo mejor que una regla simple?</p>
   <div class="links">
-    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/email-uplift">View code on GitHub</a>
-    <a class="btn" href="#method">Methodology</a>
-    <a class="btn" href="../">All projects</a>
+    <a class="btn primary" href="https://github.com/soushiki/data-science/tree/main/projects/email-uplift"><span data-l="en">View code on GitHub</span><span data-l="es">Ver código en GitHub</span></a>
+    <a class="btn" href="#method"><span data-l="en">Methodology</span><span data-l="es">Metodología</span></a>
+    <a class="btn" href="../" data-keep><span data-l="en">All projects</span><span data-l="es">Todos los proyectos</span></a>
+    <button class="btn lt" id="langbtn" type="button" aria-label="Language / Idioma"><span data-c="en">EN</span> | <span data-c="es">ES</span></button>
   </div>
   <div class="kpis" id="kpis"></div>
 </div></header>
 
 <section><div class="wrap">
-  <div class="act">Step 1 · Can we trust the test?</div>
-  <h2>Randomization checks out</h2>
-  <p>Before reading any results: the three groups are the expected size (sample-ratio-mismatch test p = <b id="srm"></b>) and their customers look alike before the email. No covariate differs by more than <b id="smd"></b> standardized mean difference, against a usual warning threshold of 0.1.</p>
+  <div class="act" data-l="en">Step 1 · Can we trust the test?</div><div class="act" data-l="es">Paso 1 · ¿Podemos confiar en la prueba?</div>
+  <h2 data-l="en">Randomization checks out</h2><h2 data-l="es">La aleatorización se sostiene</h2>
+  <p data-l="en">Before reading any results: the three groups are the expected size (sample-ratio-mismatch test p = <b data-v="srm"></b>) and their customers look alike before the email. No covariate differs by more than <b data-v="smd"></b> standardized mean difference, against a usual warning threshold of 0.1.</p><p data-l="es">Antes de leer cualquier resultado: los tres grupos tienen el tamaño esperado (prueba de desajuste en la proporción de muestra, p = <b data-v="srm"></b>) y sus clientes se parecen antes del correo. Ninguna covariable difiere en más de <b data-v="smd"></b> de diferencia media estandarizada, frente a un umbral de alerta habitual de 0,1.</p>
   <div class="grid2">
-    <div class="card"><h3>Covariate balance vs. control</h3><p class="sub">Standardized mean difference · dashed lines = ±0.1 warning threshold</p><div id="c_bal"></div><div class="legend" id="lg_bal"></div></div>
-    <div class="card"><h3>Group sizes</h3><p class="sub">Expected 1/3 each</p><div class="tablewrap" id="t_arms"></div>
-      <div class="callout" style="margin:18px 0 0">Why check first? A broken split, caused by bot traffic, a logging bug or a targeting leak, invalidates every number after it. It's the most common way real A/B tests go wrong.</div></div>
+    <div class="card"><h3><span data-l="en">Covariate balance vs. control</span><span data-l="es">Balance de covariables vs. control</span></h3><p class="sub"><span data-l="en">Standardized mean difference · dashed lines = ±0.1 warning threshold</span><span data-l="es">Diferencia media estandarizada · líneas punteadas = umbral de alerta de ±0,1</span></p><div id="c_bal"></div><div class="legend" id="lg_bal"></div></div>
+    <div class="card"><h3><span data-l="en">Group sizes</span><span data-l="es">Tamaño de los grupos</span></h3><p class="sub"><span data-l="en">Expected 1/3 each</span><span data-l="es">Se espera 1/3 cada uno</span></p><div class="tablewrap" id="t_arms"></div>
+      <div class="callout" style="margin:18px 0 0"><span data-l="en">Why check first? A broken split, caused by bot traffic, a logging bug or a targeting leak, invalidates every number after it. It's the most common way real A/B tests go wrong.</span><span data-l="es">¿Por qué revisar primero? Una división defectuosa, causada por tráfico de bots, un error de registro o una fuga en la segmentación, invalida todos los números posteriores. Es la forma más común en que fallan las pruebas A/B reales.</span></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Step 2 · Did it work?</div>
-  <h2>Both emails work, and the men's email works better</h2>
-  <p>Over the following two weeks, all six email-vs-control effects are significant after Holm correction for running six tests. The men's email also beats the women's email head-to-head on every metric.</p>
-  <div class="card" style="margin-top:24px"><h3>Relative lift with 95% confidence intervals</h3><p class="sub">Bootstrap CIs (2,000 resamples) · hover for absolute effects and p-values</p><div id="c_forest"></div><div class="legend" id="lg_forest"></div></div>
+  <div class="act" data-l="en">Step 2 · Did it work?</div><div class="act" data-l="es">Paso 2 · ¿Funcionó?</div>
+  <h2 data-l="en">Both emails work, and the men's email works better</h2><h2 data-l="es">Ambos correos funcionan, y el de hombres funciona mejor</h2>
+  <p data-l="en">Over the following two weeks, all six email-vs-control effects are significant after Holm correction for running six tests. The men's email also beats the women's email head-to-head on every metric.</p><p data-l="es">En las dos semanas siguientes, los seis efectos de correo vs. control son significativos tras la corrección de Holm por haber hecho seis pruebas. El correo de hombres además supera al de mujeres cara a cara en todas las métricas.</p>
+  <div class="card" style="margin-top:24px"><h3><span data-l="en">Relative lift with 95% confidence intervals</span><span data-l="es">Lift relativo con intervalos de confianza del 95%</span></h3><p class="sub"><span data-l="en">Bootstrap CIs (2,000 resamples) · hover for absolute effects and p-values</span><span data-l="es">IC bootstrap (2.000 remuestreos) · pasa el cursor para ver los efectos absolutos y los valores p</span></p><div id="c_forest"></div><div class="legend" id="lg_forest"></div></div>
   <div class="grid2">
-    <div class="card"><h3>Is it worth the send?</h3><p class="sub">Incremental profit per 1,000 customers, full experiment · assumes $0.10/send and 30% gross margin</p><div id="c_econ"></div><p class="sub" id="econ_note" style="margin-top:12px"></p></div>
-    <div class="card"><h3>Was the test big enough?</h3><p class="sub">Minimum detectable effect at 80% power, α = 0.05</p><div class="tablewrap" id="t_power"></div></div>
+    <div class="card"><h3><span data-l="en">Is it worth the send?</span><span data-l="es">¿Vale la pena el envío?</span></h3><p class="sub"><span data-l="en">Incremental profit per 1,000 customers, full experiment · assumes $0.10/send and 30% gross margin</span><span data-l="es">Ganancia incremental por cada 1.000 clientes, experimento completo · supone US$0,10 por envío y 30% de margen bruto</span></p><div id="c_econ"></div><p class="sub" id="econ_note" style="margin-top:12px"></p></div>
+    <div class="card"><h3><span data-l="en">Was the test big enough?</span><span data-l="es">¿Fue suficientemente grande la prueba?</span></h3><p class="sub"><span data-l="en">Minimum detectable effect at 80% power, α = 0.05</span><span data-l="es">Efecto mínimo detectable con 80% de potencia, α = 0,05</span></p><div class="tablewrap" id="t_power"></div></div>
   </div>
   <div class="callout" id="cuped"></div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Step 3 · For whom?</div>
-  <h2>The women's email only works on women's-line shoppers. The men's email works on everyone.</h2>
-  <p>Of the 24 segment interaction tests set in advance, only two survive multiple-testing correction, and both describe the same pattern. Among customers with no women's-line purchase history, the women's email barely moves visits. The men's email lifts every group by about the same amount.</p>
+  <div class="act" data-l="en">Step 3 · For whom?</div><div class="act" data-l="es">Paso 3 · ¿Para quién?</div>
+  <h2 data-l="en">The women's email only works on women's-line shoppers. The men's email works on everyone.</h2><h2 data-l="es">El correo de mujeres solo funciona con compradoras de la línea femenina. El de hombres funciona con todos.</h2>
+  <p data-l="en">Of the 24 segment interaction tests set in advance, only two survive multiple-testing correction, and both describe the same pattern. Among customers with no women's-line purchase history, the women's email barely moves visits. The men's email lifts every group by about the same amount.</p><p data-l="es">De las 24 pruebas de interacción por segmento definidas de antemano, solo dos sobreviven a la corrección por pruebas múltiples, y ambas describen el mismo patrón. Entre los clientes sin historial de compra de la línea femenina, el correo de mujeres apenas mueve las visitas. El correo de hombres hace subir a todos los grupos aproximadamente lo mismo.</p>
   <div class="grid2">
-    <div class="card"><h3>Visit lift by purchase history</h3><p class="sub">Percentage-point lift vs. control, 95% CI</p><div id="c_seg"></div><div class="legend" id="lg_seg"></div></div>
-    <div class="card"><h3>Can a model rank who responds?</h3><p class="sub">Qini curve on held-out customers (visits) · band = 10th–90th percentile over 20 splits</p>
+    <div class="card"><h3><span data-l="en">Visit lift by purchase history</span><span data-l="es">Lift en visitas según el historial de compra</span></h3><p class="sub"><span data-l="en">Percentage-point lift vs. control, 95% CI</span><span data-l="es">Lift en puntos porcentuales vs. control, IC del 95%</span></p><div id="c_seg"></div><div class="legend" id="lg_seg"></div></div>
+    <div class="card"><h3><span data-l="en">Can a model rank who responds?</span><span data-l="es">¿Puede un modelo ordenar quién responde?</span></h3><p class="sub"><span data-l="en">Qini curve on held-out customers (visits) · band = 10th–90th percentile over 20 splits</span><span data-l="es">Curva Qini en clientes reservados (visitas) · banda = percentil 10–90 sobre 20 particiones</span></p>
       <div class="seg" id="arm_sel"></div><div id="c_qini"></div><div class="legend" id="lg_qini"></div></div>
   </div>
-  <div class="card" style="margin-top:20px"><h3>Uplift learners compared</h3><p class="sub">Qini coefficient (visit) over 20 random splits; "Random" shows the noise floor</p><div class="tablewrap" id="t_learn"></div></div>
+  <div class="card" style="margin-top:20px"><h3><span data-l="en">Uplift learners compared</span><span data-l="es">Aprendices de uplift comparados</span></h3><p class="sub"><span data-l="en">Qini coefficient (visit) over 20 random splits; "Random" shows the noise floor</span><span data-l="es">Coeficiente Qini (visita) sobre 20 particiones aleatorias; «Azar» muestra el piso de ruido</span></p><div class="tablewrap" id="t_learn"></div></div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="act">Step 4 · The decision</div>
-  <h2>The model doesn't beat "send everyone the men's email"</h2>
-  <p>The uplift model genuinely ranks customers for the women's email. But because the men's email works on everyone and costs the same, the best targeted policy ends up sending nearly everyone the men's email anyway. On held-out customers, every policy difference is within noise.</p>
+  <div class="act" data-l="en">Step 4 · The decision</div><div class="act" data-l="es">Paso 4 · La decisión</div>
+  <h2 data-l="en">The model doesn't beat "send everyone the men's email"</h2><h2 data-l="es">El modelo no supera a «enviar a todos el correo de hombres»</h2>
+  <p data-l="en">The uplift model genuinely ranks customers for the women's email. But because the men's email works on everyone and costs the same, the best targeted policy ends up sending nearly everyone the men's email anyway. On held-out customers, every policy difference is within noise.</p><p data-l="es">El modelo de uplift sí ordena bien a los clientes para el correo de mujeres. Pero como el correo de hombres funciona con todos y cuesta lo mismo, la mejor política focalizada termina enviándole a casi todos el correo de hombres de todos modos. En los clientes reservados, toda diferencia entre políticas está dentro del ruido.</p>
   <div class="grid2">
-    <div class="card"><h3>Policies on held-out customers</h3><p class="sub">Incremental profit per 1,000 vs. emailing nobody · 95% bootstrap CI · ◆ = mean over 10 splits</p><div id="c_policy"></div></div>
-    <div class="card"><h3>Recommendation</h3>
+    <div class="card"><h3><span data-l="en">Policies on held-out customers</span><span data-l="es">Políticas en clientes reservados</span></h3><p class="sub"><span data-l="en">Incremental profit per 1,000 vs. emailing nobody · 95% bootstrap CI · ◆ = mean over 10 splits</span><span data-l="es">Ganancia incremental por cada 1.000 vs. no enviarle a nadie · IC bootstrap del 95% · ◆ = media sobre 10 particiones</span></p><div id="c_policy"></div></div>
+    <div class="card"><h3><span data-l="en">Recommendation</span><span data-l="es">Recomendación</span></h3>
       <ul class="tight" style="margin-top:6px">
-        <li><b>Ship the men's email to the whole list.</b> It's the only arm whose full-experiment profit CI excludes zero.</li>
-        <li><b>Don't deploy the uplift model</b> for this campaign. It adds complexity and no measurable profit (model − simple rule: <span id="mvm"></span>).</li>
-        <li><b>Revisit targeting when contacts get expensive</b>, for example discounts or direct mail. Higher cost per contact makes it worth skipping customers who won't respond, which is where uplift models pay off.</li>
-        <li><b>Re-test the women's email only on women's-line buyers</b>, the one segment where it clearly works.</li>
+        <li data-l="en"><b>Ship the men's email to the whole list.</b> It's the only arm whose full-experiment profit CI excludes zero.</li><li data-l="es"><b>Enviar el correo de hombres a toda la lista.</b> Es la única variante cuyo IC de ganancia en el experimento completo excluye el cero.</li>
+        <li data-l="en"><b>Don't deploy the uplift model</b> for this campaign. It adds complexity and no measurable profit (model − simple rule: <span data-v="mvm"></span>).</li><li data-l="es"><b>No desplegar el modelo de uplift</b> en esta campaña. Agrega complejidad y ninguna ganancia medible (modelo − regla simple: <span data-v="mvm"></span>).</li>
+        <li data-l="en"><b>Revisit targeting when contacts get expensive</b>, for example discounts or direct mail. Higher cost per contact makes it worth skipping customers who won't respond, which is where uplift models pay off.</li><li data-l="es"><b>Revisar la segmentación cuando los contactos se encarezcan</b>, por ejemplo con descuentos o correo físico. Un mayor costo por contacto hace que valga la pena omitir a los clientes que no responderán, que es donde los modelos de uplift rinden.</li>
+        <li data-l="en"><b>Re-test the women's email only on women's-line buyers</b>, the one segment where it clearly works.</li><li data-l="es"><b>Volver a probar el correo de mujeres solo con compradoras de la línea femenina</b>, el único segmento donde claramente funciona.</li>
       </ul>
     </div>
   </div>
 </div></section>
 
 <section id="method"><div class="wrap">
-  <div class="act">Methodology</div>
-  <h2>How it was analyzed</h2>
+  <div class="act" data-l="en">Methodology</div><div class="act" data-l="es">Metodología</div>
+  <h2 data-l="en">How it was analyzed</h2><h2 data-l="es">Cómo se analizó</h2>
   <div class="steps">
-    <div class="card"><div class="n">01 · Readout</div><h3>Pre-specified tests</h3><p>Welch t-tests and two-proportion z-tests, bootstrap CIs for heavy-tailed spend (99% zeros), and Holm correction across the six primary comparisons. Segment interactions are corrected with Holm and Benjamini-Hochberg.</p></div>
-    <div class="card"><div class="n">02 · Variance reduction</div><h3>Regression adjustment</h3><p>CUPED-style ANCOVA on pre-period covariates (purchase history, recency, channel, newbie). It barely helped: the covariates explain under 3% of outcome variance. That's a finding too.</p></div>
-    <div class="card"><div class="n">03 · Uplift</div><h3>Meta-learners</h3><p>S-, T- and X-learners on gradient boosting, evaluated by Qini on a stratified 30% holdout and repeated over 20 splits to measure stability. Policies are evaluated offline by matching each customer's randomized arm to the policy's recommendation.</p></div>
+    <div class="card"><div class="n"><span data-l="en">01 · Readout</span><span data-l="es">01 · Lectura de resultados</span></div><h3><span data-l="en">Pre-specified tests</span><span data-l="es">Pruebas preespecificadas</span></h3><p data-l="en">Welch t-tests and two-proportion z-tests, bootstrap CIs for heavy-tailed spend (99% zeros), and Holm correction across the six primary comparisons. Segment interactions are corrected with Holm and Benjamini-Hochberg.</p><p data-l="es">Pruebas t de Welch y pruebas z de dos proporciones, IC bootstrap para el gasto de cola pesada (99% de ceros) y corrección de Holm sobre las seis comparaciones primarias. Las interacciones por segmento se corrigen con Holm y Benjamini-Hochberg.</p></div>
+    <div class="card"><div class="n"><span data-l="en">02 · Variance reduction</span><span data-l="es">02 · Reducción de varianza</span></div><h3><span data-l="en">Regression adjustment</span><span data-l="es">Ajuste por regresión</span></h3><p data-l="en">CUPED-style ANCOVA on pre-period covariates (purchase history, recency, channel, newbie). It barely helped: the covariates explain under 3% of outcome variance. That's a finding too.</p><p data-l="es">ANCOVA estilo CUPED sobre covariables del periodo previo (historial de compras, recencia, canal, cliente nuevo). Ayudó muy poco: las covariables explican menos del 3% de la varianza del resultado. Eso también es un hallazgo.</p></div>
+    <div class="card"><div class="n"><span data-l="en">03 · Uplift</span><span data-l="es">03 · Uplift</span></div><h3><span data-l="en">Meta-learners</span><span data-l="es">Metaaprendices</span></h3><p data-l="en">S-, T- and X-learners on gradient boosting, evaluated by Qini on a stratified 30% holdout and repeated over 20 splits to measure stability. Policies are evaluated offline by matching each customer's randomized arm to the policy's recommendation.</p><p data-l="es">Aprendices S, T y X sobre gradient boosting, evaluados con Qini sobre un conjunto reservado estratificado del 30% y repetidos en 20 particiones para medir la estabilidad. Las políticas se evalúan fuera de línea emparejando el grupo aleatorizado de cada cliente con la recomendación de la política.</p></div>
   </div>
-  <h3 style="margin-top:36px">Limitations</h3>
+  <h3 style="margin-top:36px"><span data-l="en">Limitations</span><span data-l="es">Limitaciones</span></h3>
   <ul class="tight">
-    <li>The data is a public 2008 retail experiment (Kevin Hillstrom / MineThatData), well known in the uplift-modeling community. The goal here is rigor, not a novel dataset.</li>
-    <li>Email cost and margin are illustrative assumptions, not from the data. The conclusions hold across reasonable values, but the dollar amounts don't transfer directly.</li>
-    <li>Outcomes cover only two weeks. Unsubscribes and longer-term effects aren't observed.</li>
-    <li>6,562 rows are exact duplicates. With no customer ID, these are most likely different customers with identical attributes, and they are kept.</li>
+    <li data-l="en">The data is a public 2008 retail experiment (Kevin Hillstrom / MineThatData), well known in the uplift-modeling community. The goal here is rigor, not a novel dataset.</li><li data-l="es">Los datos son un experimento minorista público de 2008 (Kevin Hillstrom / MineThatData), muy conocido en la comunidad del modelado de uplift. El objetivo aquí es el rigor, no un conjunto de datos novedoso.</li>
+    <li data-l="en">Email cost and margin are illustrative assumptions, not from the data. The conclusions hold across reasonable values, but the dollar amounts don't transfer directly.</li><li data-l="es">El costo del correo y el margen son supuestos ilustrativos, no salen de los datos. Las conclusiones se mantienen con valores razonables, pero los montos en dólares no se trasladan directamente.</li>
+    <li data-l="en">Outcomes cover only two weeks. Unsubscribes and longer-term effects aren't observed.</li><li data-l="es">Los resultados cubren solo dos semanas. No se observan las bajas de suscripción ni los efectos de más largo plazo.</li>
+    <li data-l="en">6,562 rows are exact duplicates. With no customer ID, these are most likely different customers with identical attributes, and they are kept.</li><li data-l="es">6.562 filas son duplicados exactos. Sin un ID de cliente, lo más probable es que sean clientes distintos con atributos idénticos, y se conservan.</li>
   </ul>
 </div></section>
 
-<footer><div class="wrap">Data: Kevin Hillstrom, MineThatData E-Mail Analytics and Data Mining Challenge (2008). Built with Python, pandas, scikit-learn, SciPy and statsmodels. Charts are hand-drawn SVG with no dependencies.</div></footer>
+<footer><div class="wrap"><span data-l="en">Data: Kevin Hillstrom, MineThatData E-Mail Analytics and Data Mining Challenge (2008). Built with Python, pandas, scikit-learn, SciPy and statsmodels. Charts are hand-drawn SVG with no dependencies.</span><span data-l="es">Datos: Kevin Hillstrom, MineThatData E-Mail Analytics and Data Mining Challenge (2008). Construido con Python, pandas, scikit-learn, SciPy y statsmodels. Los gráficos son SVG dibujados a mano, sin dependencias.</span></div></footer>
 
 <script>
 const D = /*__DATA__*/null;
+const L={en:{
+  title:'Email Uplift Test',
+  arm:{mens:"Men's email",womens:"Women's email"},armS:{mens:"Men's",womens:"Women's"},
+  kpi1:"more site visits from the men's email",kpi2:'extra spend per customer emailed',
+  kpi3:(a,b,c)=>`profit per 1,000 sent (95% CI ${b}–${c})`,kpi4:'extra profit from model targeting vs. a simple rule',
+  mvm:(a,b,c)=>`${a} per 1,000, CI ${b} to ${c}`,
+  trt:'treated',ctl:'control',
+  arms:{},
+  group:'Group',customers:'Customers',share:'Share',visit:'Visit',spend:'Spend',
+  OUT:{visit:'Visit',conversion:'Purchase',spend:'Spend'},outn:{},
+  vsnone:' vs none',vsnoemail:' vs no email',mvw:"Men's vs women's",mvwl:"men's vs women's email",
+  lift:'lift',relative:'relative',holm:'Holm p =',
+  tip_econ:(l,m,c,v,lo,hi)=>`spend lift ${l} × ${m} margin − ${c} send<br>= ${v} per 1,000 [${lo}, ${hi}]`,
+  econ_note:(c)=>`The men's email pays off with confidence. The women's email's interval includes zero. Break-even needs a spend lift of ${c} per customer.`,
+  pw_metric:'Metric',pw_obs:'Observed',pw_power:'Power',
+  pw_note:"Spend is the hard metric: 99% of customers spend $0, so its MDE is about 60% relative. The women's-email spend lift sat close to that detection limit.",
+  cuped:(m)=>`<b>Variance reduction barely helped, and that's informative.</b> Adjusting for pre-period covariates (CUPED-style) shrank confidence intervals by at most ${m}%, because past purchase behavior explains under 3% of two-week outcomes. CUPED pays off when a pre-period version of the same metric exists. A team planning the next test should budget for sample size rather than count on adjustment.`,
+  seg:{womens:"Bought women's line",mens:"Bought men's line"},yes:'yes',no:'no',visits:'visits',ci95:(a,b)=>`95% CI ${a} to ${b}`,
+  qx:'share of customers targeted (highest predicted uplift first)',
+  qtip:(t,b,x,y)=>`Target top <b>${t}</b><br>${b}: ${x} incremental visits (per customer base)<br>Random targeting: ${y}`,
+  qleg:(b)=>b+' (best)',q1090:'10–90% over splits',qrand:'Random targeting',
+  learner:'Learner',qh:(a)=>`${L.en.arm[a]} Qini`,splits:'Splits > 0',lnames:{},randfloor:'Random (noise floor)',
+  lnote:"Qini coefficient in pp, mean ± sd over 20 splits. For the women's email, every learner clears the noise floor in 100% of splits. For the men's email the signal is weak, because it works on everyone. On spend, no learner beats random.",
+  pol:{'Mens to all':"Men's email to all",'Womens to all':"Women's email to all",'Rule: gender-history cells':'Rule by purchase history','Model-targeted (top-k)':'Uplift model (top-k)'},
+  ptip:(h,lo,hi,m,sd,a,b)=>`holdout: ${h} per 1,000 [${lo}, ${hi}]<br>mean over 10 splits: ${m} ± ${sd}<br>emails: ${a} men's · ${b} women's`,
+  cov:null
+},es:{
+  title:'Prueba de uplift por correo',
+  arm:{mens:'Correo de hombres',womens:'Correo de mujeres'},armS:{mens:'Hombres',womens:'Mujeres'},
+  kpi1:'más visitas al sitio por el correo de hombres',kpi2:'gasto adicional por cada cliente que recibió el correo',
+  kpi3:(a,b,c)=>`ganancia por cada 1.000 enviados (IC del 95%: ${b}–${c})`,kpi4:'ganancia adicional de segmentar con el modelo vs. una regla simple',
+  mvm:(a,b,c)=>`${a} por cada 1.000, IC de ${b} a ${c}`,
+  trt:'tratados',ctl:'control',
+  arms:{'No E-Mail':'Sin correo (control)','Mens E-Mail':'Correo de hombres','Womens E-Mail':'Correo de mujeres'},
+  group:'Grupo',customers:'Clientes',share:'Proporción',visit:'Visita',spend:'Gasto',
+  OUT:{visit:'Visita',conversion:'Compra',spend:'Gasto'},outn:{visit:'visita',conversion:'conversión',spend:'gasto'},
+  vsnone:' vs. sin correo',vsnoemail:' vs. sin correo',mvw:'Hombres vs. mujeres',mvwl:'correo de hombres vs. correo de mujeres',
+  lift:'lift',relative:'relativo',holm:'p de Holm =',
+  tip_econ:(l,m,c,v,lo,hi)=>`lift de gasto ${l} × ${m} de margen − ${c} por envío<br>= ${v} por cada 1.000 [${lo}, ${hi}]`,
+  econ_note:(c)=>`El correo de hombres da ganancia con confianza. El intervalo del correo de mujeres incluye el cero. El punto de equilibrio requiere un lift de gasto de ${c} por cliente.`,
+  pw_metric:'Métrica',pw_obs:'Observado',pw_power:'Potencia',
+  pw_note:'El gasto es la métrica difícil: el 99% de los clientes gasta US$0, así que su MDE es de cerca del 60% relativo. El lift de gasto del correo de mujeres quedó cerca de ese límite de detección.',
+  cuped:(m)=>`<b>La reducción de varianza ayudó muy poco, y eso es informativo.</b> Ajustar por covariables del periodo previo (estilo CUPED) redujo los intervalos de confianza como máximo en ${m}%, porque el comportamiento de compra pasado explica menos del 3% de los resultados a dos semanas. CUPED rinde cuando existe una versión previa de la misma métrica. Un equipo que planee la siguiente prueba debería presupuestar el tamaño de muestra en lugar de confiar en el ajuste.`,
+  seg:{womens:'Compró línea femenina',mens:'Compró línea masculina'},yes:'sí',no:'no',visits:'de visitas',ci95:(a,b)=>`IC del 95% de ${a} a ${b}`,
+  qx:'proporción de clientes seleccionados (mayor uplift predicho primero)',
+  qtip:(t,b,x,y)=>`Seleccionar al <b>${t}</b> superior<br>${b}: ${x} de visitas incrementales (por base de clientes)<br>Selección aleatoria: ${y}`,
+  qleg:(b)=>b+' (mejor)',q1090:'10–90% entre particiones',qrand:'Selección aleatoria',
+  learner:'Aprendiz',qh:(a)=>`Qini, ${L.es.arm[a].toLowerCase()}`,splits:'Particiones > 0',lnames:{'S-learner':'Aprendiz S','T-learner':'Aprendiz T','X-learner':'Aprendiz X'},randfloor:'Azar (piso de ruido)',
+  lnote:'Coeficiente Qini en pp, media ± desviación estándar sobre 20 particiones. Para el correo de mujeres, todos los aprendices superan el piso de ruido en el 100% de las particiones. Para el correo de hombres la señal es débil, porque funciona con todos. En gasto, ningún aprendiz supera al azar.',
+  pol:{'Mens to all':'Correo de hombres a todos','Womens to all':'Correo de mujeres a todos','Rule: gender-history cells':'Regla por historial de compra','Model-targeted (top-k)':'Modelo de uplift (top-k)'},
+  ptip:(h,lo,hi,m,sd,a,b)=>`reservados: ${h} por cada 1.000 [${lo}, ${hi}]<br>media sobre 10 particiones: ${m} ± ${sd}<br>correos: ${a} de hombres · ${b} de mujeres`,
+  cov:{chan_phone:'canal: teléfono',chan_web:'canal: web',history:'historial de gasto',mens:'compró línea masculina',womens:'compró línea femenina',newbie:'cliente nuevo',recency:'recencia',zip_suburban:'zona: suburbana',zip_urban:'zona: urbana'}
+}};
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const pct = (x,d=0) => (x*100).toFixed(d)+'%';
-const pp = (x,d=1) => (x>0?'+':'')+(x*100).toFixed(d)+'pp';
-const usd = (x,d=0) => (x<0?'−$':'$')+Math.abs(x).toFixed(d);
-const pfmt = p => p<1e-4?'<0.0001':p.toFixed(4);
+let lang=document.documentElement.lang==='es'?'es':'en';
+const loc=()=>lang==='es'?'es-CO':'en-US';
+const nf=(x,d=0)=>x.toLocaleString(loc(),{minimumFractionDigits:d,maximumFractionDigits:d});
+const tr=k=>{const v=L[lang][k];return v===undefined?L.en[k]:v};
+const setv=(n,t)=>document.querySelectorAll('[data-v="'+n+'"]').forEach(e=>e.textContent=t);
+const mon=(d,o)=>d.toLocaleDateString(loc(),o).replace(/[.]/g,'');
+function setLang(l,save){
+  lang=l;document.documentElement.lang=l;
+  if(save){try{localStorage.setItem('lang',l);localStorage.setItem('cv-lang',l)}catch(e){}}
+  try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  document.querySelectorAll('.lt span').forEach(s=>s.classList.toggle('on',s.dataset.c===l));
+  document.querySelectorAll('a[data-keep]').forEach(a=>{if(!a.dataset.base)a.dataset.base=a.getAttribute('href');a.href=a.dataset.base+'?lang='+l});
+  document.title=tr('title');
+}
+document.getElementById('langbtn').onclick=()=>{setLang(lang==='es'?'en':'es',true);render()};
+const pct = (x,d=0) => nf(x*100,d)+'%';
+const pp = (x,d=1) => (x>0?'+':'')+nf(x*100,d)+'pp';
+const usd = (x,d=0) => (x<0?'−':'')+(lang==='es'?'US$':'$')+nf(Math.abs(x),d);
+const pfmt = p => p<1e-4?(lang==='es'?'<0,0001':'<0.0001'):nf(p,4);
+const nfa = x => typeof x==='number'?x.toLocaleString(loc(),{maximumFractionDigits:6}):x;
 const NS='http://www.w3.org/2000/svg';
 function el(tag,a={},p){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
 function svg(host,w,h){const s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img'});const n=document.getElementById(host);n.innerHTML='';n.appendChild(s);return s}
@@ -182,7 +262,8 @@ function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;tip.style.left=M
 function hideTip(){tip.style.opacity=0}
 function hover(n,html){n.addEventListener('mousemove',e=>showTip(e,html));n.addEventListener('mouseleave',hideTip)}
 const legend=(id,items)=>document.getElementById(id).innerHTML=items.map(([l,c,cls])=>`<span><i class="${cls||''}" style="background:${c}"></i>${l}</span>`).join('');
-const ARM={mens:"Men's email",womens:"Women's email"};
+const ARM=new Proxy({},{get:(_,k)=>L[lang].arm[k]});
+const lname=l=>L[lang].lnames[l]||l;
 let qarm='womens';
 
 // Horizontal CI chart: rows [{label, group?, est, lo, hi, color, tip}]
@@ -202,60 +283,60 @@ function ciChart(host,rows,{lo,hi,ticks,fmt,lw=170,rh=26,zero=0,refs=[],w=480}){
 
 function render(){
   const k=D.kpis,accent=css('--accent'),cool=css('--cool'),gray=css('--gray'),ink=css('--ink'),good=css('--good');
-  const A=D.assumptions,L=D.lifts,find=(arm,vs,o)=>L.find(r=>r.arm===arm&&r.vs===vs&&r.outcome===o);
+  const A=D.assumptions,LF=D.lifts,find=(arm,vs,o)=>LF.find(r=>r.arm===arm&&r.vs===vs&&r.outcome===o);
   const profit=x=>(x*A.gross_margin-A.email_cost_per_send)*1000;
   const ms=find('mens','control','spend'),ws=find('womens','control','spend');
   const mvm=D.policy.model_vs['Mens to all'];
 
   document.getElementById('kpis').innerHTML=[
-    ['+'+pct(k.mens_visit_lift_rel),"more site visits from the men's email"],
-    ['+'+usd(k.mens_spend_lift_abs,2),'extra spend per customer emailed'],
-    [usd(profit(ms.lift_abs)),`profit per 1,000 sent (95% CI ${usd(profit(ms.ci[0]))}–${usd(profit(ms.ci[1]))})`],
-    ['≈ $0','extra profit from model targeting vs. a simple rule']
+    ['+'+pct(k.mens_visit_lift_rel),tr('kpi1')],
+    ['+'+usd(k.mens_spend_lift_abs,2),tr('kpi2')],
+    [usd(profit(ms.lift_abs)),tr('kpi3')(0,usd(profit(ms.ci[0])),usd(profit(ms.ci[1])))],
+    ['≈ '+usd(0),tr('kpi4')]
   ].map(([v,l])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
-  document.getElementById('srm').textContent=D.srm.p_value.toFixed(2);
-  document.getElementById('smd').textContent=D.balance.max_abs_smd.toFixed(3);
-  document.getElementById('mvm').textContent=`${usd(mvm.diff_per_1000)} per 1,000, CI ${usd(mvm.ci_low)} to ${usd(mvm.ci_high)}`;
+  setv('srm',nf(D.srm.p_value,2));
+  setv('smd',nf(D.balance.max_abs_smd,3));
+  setv('mvm',tr('mvm')(usd(mvm.diff_per_1000),usd(mvm.ci_low),usd(mvm.ci_high)));
 
   // balance
   {const rows=D.balance.rows,covs=[...new Set(rows.map(r=>r.covariate))];
-   const lab=c=>c.replace(/_/g,' ').replace(/^history segment /,'spend band ').replace('zip code ','zip: ');
+   const lab=c=>(lang==='es'&&L.es.cov[c])||c.replace(/_/g,' ').replace(/^history segment /,'spend band ').replace('zip code ','zip: ');
    const out=covs.map(c=>{const m=rows.find(r=>r.covariate===c&&r.arm==='mens'),wm=rows.find(r=>r.covariate===c&&r.arm==='womens');return {c,m,wm}});
    const w=480,rh=20,lw=150,h=out.length*rh+26,s=svg('c_bal',w,h);const X=v=>lw+(v+0.15)/0.3*(w-lw-10);
-   [-0.1,0,0.1].forEach(t=>{el('line',{x1:X(t),x2:X(t),y1:0,y2:out.length*rh,stroke:t===0?ink:accent,'stroke-opacity':t===0?.4:.6,'stroke-dasharray':t===0?'':'4 4'},s);txt(s,X(t),out.length*rh+16,t.toFixed(1),{'text-anchor':'middle'})});
+   [-0.1,0,0.1].forEach(t=>{el('line',{x1:X(t),x2:X(t),y1:0,y2:out.length*rh,stroke:t===0?ink:accent,'stroke-opacity':t===0?.4:.6,'stroke-dasharray':t===0?'':'4 4'},s);txt(s,X(t),out.length*rh+16,nf(t,1),{'text-anchor':'middle'})});
    out.forEach((r,i)=>{const y=i*rh+rh/2;txt(s,lw-8,y+4,lab(r.c),{'text-anchor':'end',style:`fill:${ink};font-size:11px`});
-     [[r.m,cool],[r.wm,accent]].forEach(([q,c])=>{if(!q)return;const d=el('circle',{cx:X(q.smd),cy:y,r:4,fill:c,'fill-opacity':.85},s);hover(d,`<b>${lab(r.c)}</b> · ${ARM[q.arm]}<br>treated ${q.mean_treated} vs control ${q.mean_control}<br>SMD ${q.smd}`)})});
+     [[r.m,cool],[r.wm,accent]].forEach(([q,c])=>{if(!q)return;const d=el('circle',{cx:X(q.smd),cy:y,r:4,fill:c,'fill-opacity':.85},s);hover(d,`<b>${lab(r.c)}</b> · ${ARM[q.arm]}<br>${tr('trt')} ${nfa(q.mean_treated)} vs ${tr('ctl')} ${nfa(q.mean_control)}<br>SMD ${nfa(q.smd)}`)})});
    legend('lg_bal',[[ARM.mens,cool],[ARM.womens,accent]]);}
 
   // arms table
-  document.getElementById('t_arms').innerHTML=`<table><tr><th>Group</th><th>Customers</th><th>Share</th><th>Visit</th><th>Spend</th></tr>${D.arm_summary.map(r=>`<tr><td>${r.arm.replace('E-Mail','email').replace('No email','No email (control)')}</td><td class="num">${Math.round(r.n).toLocaleString()}</td><td class="num">${pct(r.n/D.kpis.n_customers,1)}</td><td class="num">${pct(r.visit,1)}</td><td class="num">$${r.spend.toFixed(2)}</td></tr>`).join('')}</table>`;
+  document.getElementById('t_arms').innerHTML=`<table><tr><th>${tr('group')}</th><th>${tr('customers')}</th><th>${tr('share')}</th><th>${tr('visit')}</th><th>${tr('spend')}</th></tr>${D.arm_summary.map(r=>`<tr><td>${lang==='es'?L.es.arms[r.arm]:r.arm.replace('E-Mail','email').replace('No email','No email (control)')}</td><td class="num">${Math.round(r.n).toLocaleString(loc())}</td><td class="num">${pct(r.n/D.kpis.n_customers,1)}</td><td class="num">${pct(r.visit,1)}</td><td class="num">${usd(r.spend,2)}</td></tr>`).join('')}</table>`;
 
   // forest (relative lift)
-  {const OUT={visit:'Visit',conversion:'Purchase',spend:'Spend'};const rows=[];
+  {const OUT=L[lang].OUT;const rows=[];
    ['visit','conversion','spend'].forEach(o=>{[['mens','control',cool],['womens','control',accent],['mens','womens',gray]].forEach(([a,v,c],j)=>{const r=find(a,v,o);
-     rows.push({group:j===0?OUT[o]:'',label:v==='control'?ARM[a]+' vs none':"Men's vs women's",est:r.lift_rel,lo:r.boot_rel_ci[0],hi:r.boot_rel_ci[1],color:c,
-       tip:`<b>${OUT[o]}: ${v==='control'?ARM[a]+' vs no email':"men's vs women's email"}</b><br>${o==='spend'?usd(r.mean_treated,2)+' vs '+usd(r.mean_control,2):pct(r.mean_treated,2)+' vs '+pct(r.mean_control,2)}<br>lift ${o==='spend'?'+'+usd(r.lift_abs,2):pp(r.lift_abs,2)} (${pct(r.lift_rel)} relative)<br>Holm p = ${pfmt(r.p_holm)}`})})});
+     rows.push({group:j===0?OUT[o]:'',label:v==='control'?ARM[a]+tr('vsnone'):tr('mvw'),est:r.lift_rel,lo:r.boot_rel_ci[0],hi:r.boot_rel_ci[1],color:c,
+       tip:`<b>${OUT[o]}: ${v==='control'?ARM[a]+tr('vsnoemail'):tr('mvwl')}</b><br>${o==='spend'?usd(r.mean_treated,2)+' vs '+usd(r.mean_control,2):pct(r.mean_treated,2)+' vs '+pct(r.mean_control,2)}<br>${tr('lift')} ${o==='spend'?'+'+usd(r.lift_abs,2):pp(r.lift_abs,2)} (${pct(r.lift_rel)} ${tr('relative')})<br>${tr('holm')} ${pfmt(r.p_holm)}`})})});
    ciChart('c_forest',rows,{lo:-0.1,hi:2,ticks:[0,0.5,1,1.5,2],fmt:v=>'+'+pct(v),lw:260,w:960,rh:24});
-   legend('lg_forest',[[ARM.mens+' vs no email',cool],[ARM.womens+' vs no email',accent],["Men's vs women's",gray]]);}
+   legend('lg_forest',[[ARM.mens+tr('vsnoemail'),cool],[ARM.womens+tr('vsnoemail'),accent],[tr('mvw'),gray]]);}
 
   // economics
   {const rows=[['mens',ms,cool],['womens',ws,accent]].map(([a,r,c])=>({label:ARM[a],est:profit(r.lift_abs),lo:profit(r.ci[0]),hi:profit(r.ci[1]),color:c,
-     tip:`<b>${ARM[a]}</b><br>spend lift ${usd(r.lift_abs,2)} × ${pct(A.gross_margin)} margin − ${usd(A.email_cost_per_send,2)} send<br>= ${usd(profit(r.lift_abs))} per 1,000 [${usd(profit(r.ci[0]))}, ${usd(profit(r.ci[1]))}]`}));
+     tip:`<b>${ARM[a]}</b><br>${tr('tip_econ')(usd(r.lift_abs,2),pct(A.gross_margin),usd(A.email_cost_per_send,2),usd(profit(r.lift_abs)),usd(profit(r.ci[0])),usd(profit(r.ci[1])))}`}));
    ciChart('c_econ',rows,{lo:-100,hi:250,ticks:[-100,0,100,200],fmt:v=>usd(v),lw:120,rh:40});
-   document.getElementById('econ_note').innerHTML=`The men's email pays off with confidence. The women's email's interval includes zero. Break-even needs a spend lift of ${usd(A.email_cost_per_send/A.gross_margin,2)} per customer.`;}
+   document.getElementById('econ_note').innerHTML=tr('econ_note')(usd(A.email_cost_per_send/A.gross_margin,2));}
 
   // power
-  document.getElementById('t_power').innerHTML=`<table><tr><th>Metric</th><th>MDE</th><th>Observed</th><th>Power</th></tr>${D.power.map(r=>`<tr><td>${ARM[r.arm].replace(' email','')} · ${r.outcome}</td><td class="num">${r.outcome==='spend'?usd(r.mde_abs,2):pp(r.mde_abs,2)}</td><td class="num">${r.outcome==='spend'?usd(r.observed_lift_abs,2):pp(r.observed_lift_abs,2)}</td><td class="num">${pct(r.power_at_observed_lift)}</td></tr>`).join('')}</table><p class="sub" style="margin-top:10px">Spend is the hard metric: 99% of customers spend $0, so its MDE is about 60% relative. The women's-email spend lift sat close to that detection limit.</p>`;
+  document.getElementById('t_power').innerHTML=`<table><tr><th>${tr('pw_metric')}</th><th>MDE</th><th>${tr('pw_obs')}</th><th>${tr('pw_power')}</th></tr>${D.power.map(r=>`<tr><td>${L[lang].armS[r.arm]} · ${L[lang].outn[r.outcome]||r.outcome}</td><td class="num">${r.outcome==='spend'?usd(r.mde_abs,2):pp(r.mde_abs,2)}</td><td class="num">${r.outcome==='spend'?usd(r.observed_lift_abs,2):pp(r.observed_lift_abs,2)}</td><td class="num">${pct(r.power_at_observed_lift)}</td></tr>`).join('')}</table><p class="sub" style="margin-top:10px">${tr('pw_note')}</p>`;
 
   // cuped callout
-  {const red=L.filter(r=>r.vs==='control').map(r=>r.ci_width_reduction_pct);
-   document.getElementById('cuped').innerHTML=`<b>Variance reduction barely helped, and that's informative.</b> Adjusting for pre-period covariates (CUPED-style) shrank confidence intervals by at most ${Math.max(...red).toFixed(1)}%, because past purchase behavior explains under 3% of two-week outcomes. CUPED pays off when a pre-period version of the same metric exists. A team planning the next test should budget for sample size rather than count on adjustment.`;}
+  {const red=LF.filter(r=>r.vs==='control').map(r=>r.ci_width_reduction_pct);
+   document.getElementById('cuped').innerHTML=tr('cuped')(nf(Math.max(...red),1));}
 
   // segments
   {const cells=D.heterogeneity.cells.filter(c=>c.outcome==='visit'&&(c.segment==='womens'||c.segment==='mens'));
-   const rows=[];[['womens','Bought women\'s line'],['mens','Bought men\'s line']].forEach(([sg,name])=>{['1','0'].forEach((lv,j)=>{['mens','womens'].forEach((a,q)=>{const c=cells.find(x=>x.arm===a&&x.segment===sg&&x.level===lv);
-     rows.push({group:j===0&&q===0?name:'',label:(lv==='1'?'yes':'no')+' · '+(a==='mens'?"men's":"women's"),est:c.cate,lo:c.ci[0],hi:c.ci[1],color:a==='mens'?cool:accent,tip:`<b>${name}: ${lv==='1'?'yes':'no'}</b><br>${ARM[a]}: ${pp(c.cate)} visits<br>95% CI ${pp(c.ci[0])} to ${pp(c.ci[1])}<br>n = ${c.n.toLocaleString()}`})})})});
-   ciChart('c_seg',rows,{lo:0,hi:0.1,ticks:[0,0.025,0.05,0.075,0.1],fmt:v=>'+'+(v*100).toFixed(1).replace('.0','')+'pp',lw:290,rh:24});
+   const rows=[];[['womens',L[lang].seg.womens],['mens',L[lang].seg.mens]].forEach(([sg,name])=>{['1','0'].forEach((lv,j)=>{['mens','womens'].forEach((a,q)=>{const c=cells.find(x=>x.arm===a&&x.segment===sg&&x.level===lv);
+     rows.push({group:j===0&&q===0?name:'',label:(lv==='1'?tr('yes'):tr('no'))+' · '+(lang==='es'?ARM[a].toLowerCase():L[lang].armS[a]),est:c.cate,lo:c.ci[0],hi:c.ci[1],color:a==='mens'?cool:accent,tip:`<b>${name}: ${lv==='1'?tr('yes'):tr('no')}</b><br>${ARM[a]}: ${pp(c.cate)} ${tr('visits')}<br>${tr('ci95')(pp(c.ci[0]),pp(c.ci[1]))}<br>n = ${c.n.toLocaleString(loc())}`})})})});
+   ciChart('c_seg',rows,{lo:0,hi:0.1,ticks:[0,0.025,0.05,0.075,0.1],fmt:v=>'+'+nf(v*100,1).replace(/[.,]0$/,'')+'pp',lw:290,rh:24});
    legend('lg_seg',[[ARM.mens,cool],[ARM.womens,accent]]);}
 
   // qini
@@ -265,31 +346,32 @@ function render(){
    const w=480,h=300,m={l:46,r:10,t:10,b:34},W=w-m.l-m.r,H=h-m.t-m.b,s=svg('c_qini',w,h);
    const all=Object.values(C).flatMap(c=>[...(c.p90||c.mean),...c.mean]);const ymax=Math.max(...all)*1.08,ymin=Math.min(0,...all);
    const X=v=>m.l+v*W,Y=v=>m.t+H-(v-ymin)/(ymax-ymin)*H;
-   const st=ymax>0.04?0.01:0.005;for(let t=0;t<=ymax;t+=st){el('line',{x1:m.l,x2:m.l+W,y1:Y(t),y2:Y(t),stroke:css('--line')},s);txt(s,m.l-6,Y(t)+4,(t*100).toFixed(1)+'pp',{'text-anchor':'end'})}
+   const st=ymax>0.04?0.01:0.005;for(let t=0;t<=ymax;t+=st){el('line',{x1:m.l,x2:m.l+W,y1:Y(t),y2:Y(t),stroke:css('--line')},s);txt(s,m.l-6,Y(t)+4,nf(t*100,1)+'pp',{'text-anchor':'end'})}
    [0,.25,.5,.75,1].forEach(t=>txt(s,X(t),h-m.b+16,pct(t),{'text-anchor':'middle'}));
-   txt(s,m.l+W/2,h-2,'share of customers targeted (highest predicted uplift first)',{'text-anchor':'middle'});
+   txt(s,m.l+W/2,h-2,tr('qx'),{'text-anchor':'middle'});
    const c=C[best];
    el('polygon',{points:[...c.p90.map((v,i)=>X(g[i])+','+Y(v)),...c.p10.map((v,i)=>X(g[i])+','+Y(v)).reverse()].join(' '),fill:accent,'fill-opacity':.15},s);
    el('polyline',{points:c.random_line_mean.map((v,i)=>X(g[i])+','+Y(v)).join(' '),fill:'none',stroke:gray,'stroke-dasharray':'4 4'},s);
    el('polyline',{points:c.mean.map((v,i)=>X(g[i])+','+Y(v)).join(' '),fill:'none',stroke:accent,'stroke-width':2.5},s);
    const ov=el('rect',{x:m.l,y:m.t,width:W,height:H,fill:'transparent'},s);
    ov.addEventListener('mousemove',e=>{const r=s.getBoundingClientRect();const fx=((e.clientX-r.left)/r.width*w-m.l)/W;const i=Math.max(0,Math.min(g.length-1,Math.round(fx*(g.length-1))));
-     showTip(e,`Target top <b>${pct(g[i])}</b><br>${best}: ${pp(c.mean[i],2)} incremental visits (per customer base)<br>Random targeting: ${pp(c.random_line_mean[i],2)}`)});
+     showTip(e,tr('qtip')(pct(g[i]),lname(best),pp(c.mean[i],2),pp(c.random_line_mean[i],2)))});
    ov.addEventListener('mouseleave',hideTip);
-   legend('lg_qini',[[best+' (best)',accent],['10–90% over splits',accent,'box'],['Random targeting',gray]]);}
+   legend('lg_qini',[[tr('qleg')(lname(best)),accent],[tr('q1090'),accent,'box'],[tr('qrand'),gray]]);}
 
   // learners table
   {const r=D.learners.visit;const arms=['mens','womens'];const ls=['S-learner','T-learner','X-learner','Random'];
-   document.getElementById('t_learn').innerHTML=`<table><tr><th>Learner</th>${arms.map(a=>`<th>${ARM[a]} Qini</th><th>Splits &gt; 0</th>`).join('')}</tr>${ls.map(l=>`<tr class="${l==='Random'?'dim':''}"><td>${l==='Random'?'Random (noise floor)':l}</td>${arms.map(a=>{const q=r.find(x=>x.arm===a&&x.learner===l);const b=D.best_by_arm.visit[a]===l;return `<td class="num">${b?'<b>':''}${(q.qini_mean*100).toFixed(2)} ± ${(q.qini_sd*100).toFixed(2)}${b?'</b>':''}</td><td class="num">${pct(q.pct_splits_positive)}</td>`}).join('')}</tr>`).join('')}</table><p class="sub" style="margin-top:10px">Qini coefficient in pp, mean ± sd over 20 splits. For the women's email, every learner clears the noise floor in 100% of splits. For the men's email the signal is weak, because it works on everyone. On spend, no learner beats random.</p>`;}
+   document.getElementById('t_learn').innerHTML=`<table><tr><th>${tr('learner')}</th>${arms.map(a=>`<th>${tr('qh')(a)}</th><th>${tr('splits').replace('>','&gt;')}</th>`).join('')}</tr>${ls.map(l=>`<tr class="${l==='Random'?'dim':''}"><td>${l==='Random'?tr('randfloor'):lname(l)}</td>${arms.map(a=>{const q=r.find(x=>x.arm===a&&x.learner===l);const b=D.best_by_arm.visit[a]===l;return `<td class="num">${b?'<b>':''}${nf(q.qini_mean*100,2)} ± ${nf(q.qini_sd*100,2)}${b?'</b>':''}</td><td class="num">${pct(q.pct_splits_positive)}</td>`}).join('')}</tr>`).join('')}</table><p class="sub" style="margin-top:10px">${tr('lnote')}</p>`;}
 
   // policy
-  {const P=D.policy.rows.filter(r=>r.policy!=='Email nobody');const name=p=>p.replace('Mens to all',"Men's email to all").replace('Womens to all',"Women's email to all").replace('Rule: gender-history cells','Rule by purchase history').replace('Model-targeted (top-k)','Uplift model (top-k)');
+  {const P=D.policy.rows.filter(r=>r.policy!=='Email nobody');const name=p=>L[lang].pol[p]||p;
    const rows=P.map(r=>({label:name(r.policy),est:r.incremental_per_1000,lo:r.ci[0],hi:r.ci[1],mean:r.mean_over_splits,color:r.policy.startsWith('Model')?accent:r.policy.startsWith('Mens')?cool:gray,
-     tip:`<b>${name(r.policy)}</b><br>holdout: ${usd(r.incremental_per_1000)} per 1,000 [${usd(r.ci[0])}, ${usd(r.ci[1])}]<br>mean over 10 splits: ${usd(r.mean_over_splits)} ± ${usd(r.sd_over_splits)}<br>emails: ${pct(r.share_mens)} men's · ${pct(r.share_womens)} women's`}));
+     tip:`<b>${name(r.policy)}</b><br>${tr('ptip')(usd(r.incremental_per_1000),usd(r.ci[0]),usd(r.ci[1]),usd(r.mean_over_splits),usd(r.sd_over_splits),pct(r.share_mens),pct(r.share_womens))}`}));
    ciChart('c_policy',rows,{lo:-200,hi:300,ticks:[-200,-100,0,100,200,300],fmt:v=>usd(v),lw:170,rh:40});
    const sv=document.querySelector('#c_policy svg');const X=v=>170+(v+200)/500*(480-170-14);
    rows.forEach((r,i)=>el('path',{d:`M${X(r.mean)},${i*40+20-6} l6,6 l-6,6 l-6,-6z`,fill:css('--ink'),'fill-opacity':.7},sv));}
 }
+setLang(lang,false);
 render();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render);
 </script>
