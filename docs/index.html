@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Science Portfolio</title>
+<meta name="description" content="End-to-end data science projects on real public data by Sebastian Herrera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f6f3;--surface:#fff;--ink:#1c1b19;--muted:#6b6862;--line:#e4e1da;--accent:#d9480f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141412;--surface:#1d1c1a;--ink:#ecebe7;--muted:#a19d95;--line:#33312d;--accent:#ff7a3d}}
+:root[data-theme="dark"]{--bg:#141412;--surface:#1d1c1a;--ink:#ecebe7;--muted:#a19d95;--line:#33312d;--accent:#ff7a3d}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:72px 16px}
+.eyebrow{font:500 12px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(32px,5vw,48px);letter-spacing:-.025em;line-height:1.1;margin:12px 0 14px}
+.lede{color:var(--muted);font-size:18px;max-width:58ch;margin:0 0 48px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+a.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card h2{font-size:19px;margin:8px 0 6px;letter-spacing:-.01em}
+.card p{color:var(--muted);font-size:14px;margin:0 0 14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font:500 11px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:2px 6px;color:var(--muted)}
+.stat{font:600 13px Inter,sans-serif;color:var(--accent)}
+.soon{border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;min-height:180px}
+footer{margin-top:56px;color:var(--muted);font-size:14px}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Data Science Portfolio</div>
+  <h1>Real data, honest models</h1>
+  <p class="lede">End-to-end projects built on live public datasets, each covering data collection, cleaning, modeling, out-of-sample evaluation and an interactive write-up.</p>
+  <div class="grid">
+    <a class="card" href="nyc-311-delays/">
+      <div class="stat">2.2× lift at a 10% review budget</div>
+      <h2>Which NYC 311 complaints will fall behind?</h2>
+      <p>Flagging city service requests likely to be resolved slower than comparable ones, from ~400k requests on the NYC Open Data API.</p>
+      <div class="tags"><span>classification</span><span>pandas</span><span>scikit-learn</span><span>API data</span></div>
+    </a>
+    <div class="soon">More projects coming soon</div>
+  </div>
+  <footer><a href="https://github.com/soushiki/data-science">Source on GitHub</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "rows_raw": 396631,
+  "dropped": {
+    "duplicate_unique_key": 0,
+    "missing_created_date": 0,
+    "closed_before_created": 129,
+    "closed_in_future": 0
+  },
+  "flagged": {
+    "closed_within_0s": 8256,
+    "closed_exactly_midnight": 13302,
+    "still_open": 16225,
+    "borough_unspecified": 437,
+    "zip_invalid_or_missing": 3792,
+    "latlon_missing_or_outside_nyc": 11141
+  },
+  "rows_clean": 396502,
+  "base_missed_rate": 0.2938749363181018,
+  "median_resolution_hours": 6.205555555555556,
+  "study2_dropped_closed_instant": 8256,
+  "study2_n_pooled_types": 93,
+  "study2_base_rate": 0.28552258104397726
+}
