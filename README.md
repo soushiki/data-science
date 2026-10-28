@@ -2,7 +2,7 @@
 
 End-to-end data science projects built on real, messy public data. Each one goes from raw data to cleaning, modeling, honest evaluation and an interactive dashboard.
 
-🔗 **[Browse the dashboards](https://soushiki.github.io/data-science/)**
+🔗 **[Browse the dashboards](https://soushiki.github.io/data-science/)** · 📄 **[CV](https://soushiki.github.io/data-science/cv/)** ([PDF EN](docs/cv/cv-en.pdf) · [PDF ES](docs/cv/cv-es.pdf))
 
 ## Projects
 
