@@ -1,0 +1,75 @@
+{
+  "demand": {
+    "raw_rows": 83566,
+    "unparseable_dates": 0,
+    "duplicate_rows_dropped": 0,
+    "days": 1741,
+    "days_with_wrong_period_count": {},
+    "dst_days_46_periods": 5,
+    "dst_days_50_periods": 4,
+    "period_range": [
+      1,
+      50
+    ],
+    "missing_half_hours": 0,
+    "first_timestamp_utc": "2022-01-01 00:00:00+00:00",
+    "last_timestamp_utc": "2026-10-07 22:30:00+00:00",
+    "last_date": "2026-10-07",
+    "nd_nulls": 0,
+    "nd_min": 12626,
+    "nd_max": 47382,
+    "nd_nonpositive": 0
+  },
+  "weather": {
+    "source_share": {
+      "forecast": 1.0
+    },
+    "rows_by_year_source": {
+      "2022": {
+        "forecast": 52560
+      },
+      "2023": {
+        "forecast": 52560
+      },
+      "2024": {
+        "forecast": 52704
+      },
+      "2025": {
+        "forecast": 52560
+      },
+      "2026": {
+        "forecast": 43344
+      }
+    },
+    "null_share": {
+      "temperature_2m": 0.0,
+      "shortwave_radiation": 0.0,
+      "wind_speed_10m": 0.0,
+      "cloud_cover": 0.0
+    },
+    "demand_rows_without_weather": 0
+  },
+  "neso_forecast": {
+    "raw_rows": 31016,
+    "cardinal_points": [
+      "1A",
+      "1B",
+      "1F",
+      "1S",
+      "2A",
+      "2B",
+      "2F",
+      "3B",
+      "3C",
+      "4",
+      "4A",
+      "4B",
+      "4C",
+      "DP"
+    ],
+    "rows_after_first_issue": 20203,
+    "days": 1762,
+    "days_with_dp": 700,
+    "median_issue_clock_time": "0 days 08:37:00"
+  }
+}
