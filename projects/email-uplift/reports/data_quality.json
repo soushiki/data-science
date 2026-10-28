@@ -1,0 +1,96 @@
+{
+ "n_rows": 64000,
+ "n_cols": 12,
+ "nulls": {
+  "recency": 0,
+  "history_segment": 0,
+  "history": 0,
+  "mens": 0,
+  "womens": 0,
+  "zip_code": 0,
+  "newbie": 0,
+  "channel": 0,
+  "segment": 0,
+  "visit": 0,
+  "conversion": 0,
+  "spend": 0
+ },
+ "full_row_duplicates": 6562,
+ "note_duplicates": "No customer id exists, so identical rows cannot be told apart from distinct customers with identical attributes; kept.",
+ "zip_code_raw_values": [
+  "Rural",
+  "Surburban",
+  "Urban"
+ ],
+ "segment_values": {
+  "Womens E-Mail": 21387,
+  "Mens E-Mail": 21307,
+  "No E-Mail": 21306
+ },
+ "checks": {
+  "conversion_without_visit": 0,
+  "spend_positive_without_conversion": 0,
+  "conversion_with_zero_spend": 0,
+  "negative_spend": 0,
+  "negative_history": 0,
+  "recency_range": [
+   1,
+   12
+  ],
+  "history_range": [
+   29.99,
+   3345.93
+  ],
+  "binary_cols_valid": true,
+  "no_mens_no_womens": 0,
+  "history_outside_segment_band": 0
+ },
+ "history_segment_bands": {
+  "1) $0 - $100": {
+   "min": 29.99,
+   "max": 99.99,
+   "n": 22970
+  },
+  "2) $100 - $200": {
+   "min": 100.0,
+   "max": 199.98,
+   "n": 14254
+  },
+  "3) $200 - $350": {
+   "min": 200.0,
+   "max": 349.96,
+   "n": 12289
+  },
+  "4) $350 - $500": {
+   "min": 350.01,
+   "max": 499.95,
+   "n": 6409
+  },
+  "5) $500 - $750": {
+   "min": 500.0,
+   "max": 749.79,
+   "n": 4911
+  },
+  "6) $750 - $1,000": {
+   "min": 750.01,
+   "max": 999.75,
+   "n": 1859
+  },
+  "7) $1,000 +": {
+   "min": 1000.15,
+   "max": 3345.93,
+   "n": 1308
+  }
+ },
+ "spend_when_converted": {
+  "count": 578.0,
+  "mean": 116.36,
+  "std": 107.87,
+  "min": 29.99,
+  "25%": 32.27,
+  "50%": 80.8,
+  "75%": 153.35,
+  "max": 499.0
+ },
+ "spend_zero_share": 0.99096875
+}
